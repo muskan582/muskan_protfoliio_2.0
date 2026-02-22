@@ -4,284 +4,333 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Muskan Motwani — Web Developer</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
 /* ══ RESET ══ */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:'Outfit',sans-serif;overflow-x:hidden;min-height:100vh;color:#e2e8f0}
+body{font-family:'DM Sans',sans-serif;overflow-x:hidden;min-height:100vh;color:#f0f4ff;cursor:none}
 
-/* ══════════════════════════════════
-   FULL BACKGROUND IMAGE + OVERLAYS
-══════════════════════════════════ */
-.bg-image{
-  position:fixed;inset:0;z-index:0;
-  /* SVG generated deep-space scene as background */
-  background:
-    /* top left cyan aurora */
-    radial-gradient(ellipse 55% 45% at 0% 0%,rgba(6,182,212,0.22) 0%,transparent 60%),
-    /* right violet nebula */
-    radial-gradient(ellipse 60% 55% at 100% 25%,rgba(124,58,237,0.2) 0%,transparent 55%),
-    /* bottom pink */
-    radial-gradient(ellipse 50% 40% at 45% 100%,rgba(236,72,153,0.12) 0%,transparent 55%),
-    /* centre deep */
-    radial-gradient(ellipse 80% 80% at 50% 50%,rgba(15,23,42,0.5) 0%,transparent 80%),
-    /* base */
-    linear-gradient(125deg,#020614 0%,#050920 30%,#030612 60%,#060318 100%);
+/* ══ CUSTOM CURSOR ══ */
+.cursor{position:fixed;width:12px;height:12px;border-radius:50%;background:#a78bfa;pointer-events:none;z-index:9999;transition:transform .15s,background .3s;mix-blend-mode:difference}
+.cursor-ring{position:fixed;width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(167,139,250,0.5);pointer-events:none;z-index:9998;transition:transform .35s cubic-bezier(.23,1,.32,1),width .3s,height .3s,opacity .3s}
+
+/* ══ BACKGROUND ══ */
+.bg-wrap{position:fixed;inset:0;z-index:0}
+
+/* Unsplash space/nebula image */
+.bg-img{
+  position:absolute;inset:0;
+  background-image:url('https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=1920&q=80&auto=format&fit=crop');
+  background-size:cover;
+  background-position:center;
+  animation:bgPan 40s ease-in-out infinite alternate;
+  filter:saturate(1.3) brightness(0.35);
 }
+@keyframes bgPan{from{background-position:30% center}to{background-position:70% center}}
 
-/* Star-field rendered via canvas */
-#starCanvas{position:fixed;inset:0;z-index:1;pointer-events:none}
+/* Deep overlays */
+.bg-over1{position:absolute;inset:0;background:linear-gradient(135deg,rgba(15,5,40,0.85) 0%,rgba(5,5,25,0.6) 50%,rgba(30,5,50,0.85) 100%)}
+.bg-over2{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 15% 50%,rgba(124,58,237,0.18) 0%,transparent 60%)}
+.bg-over3{position:absolute;inset:0;background:radial-gradient(ellipse 50% 50% at 85% 30%,rgba(236,72,153,0.12) 0%,transparent 55%)}
+.bg-over4{position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 90%,rgba(6,182,212,0.1) 0%,transparent 60%)}
 
-/* Animated mesh grid */
+/* Animated noise grain overlay */
+.grain{
+  position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0.045;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grainShift 0.4s steps(1) infinite;
+}
+@keyframes grainShift{0%{transform:translate(0,0)}25%{transform:translate(-2%,1%)}50%{transform:translate(1%,-2%)}75%{transform:translate(-1%,2%)}100%{transform:translate(2%,-1%)}}
+
+/* Grid mesh */
 .bg-grid{
-  position:fixed;inset:0;z-index:2;
-  background-image:
-    linear-gradient(rgba(6,182,212,0.04) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(6,182,212,0.04) 1px,transparent 1px);
-  background-size:56px 56px;
-  animation:gridDrift 35s linear infinite;
-  pointer-events:none;
+  position:fixed;inset:0;z-index:2;pointer-events:none;
+  background-image:linear-gradient(rgba(167,139,250,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(167,139,250,0.035) 1px,transparent 1px);
+  background-size:72px 72px;
+  animation:gridDrift 50s linear infinite;
 }
-@keyframes gridDrift{from{background-position:0 0}to{background-position:-56px -56px}}
+@keyframes gridDrift{from{background-position:0 0}to{background-position:-72px -72px}}
 
-/* Moving aurora blobs */
-.aurora{position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:2}
-.au1{width:550px;height:400px;background:rgba(6,182,212,0.1);top:-120px;left:-80px;animation:au 14s ease-in-out infinite 0s}
-.au2{width:500px;height:500px;background:rgba(124,58,237,0.13);top:15%;right:-120px;animation:au 18s ease-in-out infinite 5s}
-.au3{width:420px;height:350px;background:rgba(236,72,153,0.08);bottom:-80px;left:25%;animation:au 22s ease-in-out infinite 10s}
-@keyframes au{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-30px) scale(1.08)}66%{transform:translate(-25px,45px) scale(0.94)}}
+/* Floating orbs */
+.orb-bg{position:fixed;border-radius:50%;pointer-events:none;z-index:2;filter:blur(120px)}
+.ob1{width:700px;height:500px;background:rgba(124,58,237,0.12);top:-150px;left:-200px;animation:obMove 20s ease-in-out infinite}
+.ob2{width:600px;height:600px;background:rgba(236,72,153,0.09);bottom:-200px;right:-150px;animation:obMove 26s ease-in-out infinite 8s}
+.ob3{width:500px;height:400px;background:rgba(6,182,212,0.07);top:40%;left:30%;animation:obMove 18s ease-in-out infinite 4s}
+@keyframes obMove{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(60px,-40px) scale(1.1)}}
 
 /* Shooting stars */
-.shoot{
-  position:fixed;height:1px;pointer-events:none;z-index:3;
-  background:linear-gradient(90deg,transparent,rgba(6,182,212,0.9),transparent);
-  animation:shootAnim 5s linear infinite;opacity:0;
-}
-.sh1{width:140px;top:12%;animation-delay:0s}
-.sh2{width:90px;top:38%;animation-delay:1.8s}
-.sh3{width:160px;top:62%;animation-delay:3.5s}
-.sh4{width:110px;top:78%;animation-delay:0.9s}
-@keyframes shootAnim{0%{left:-5%;opacity:0;transform:translateX(0)}5%{opacity:1}90%{opacity:.6}100%{left:110%;opacity:0}}
+.shoot{position:fixed;height:1.5px;pointer-events:none;z-index:3;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.9),transparent);border-radius:2px;animation:shootAnim linear infinite;opacity:0}
+.sh1{width:180px;top:8%;animation-duration:6s;animation-delay:0s}
+.sh2{width:120px;top:32%;animation-duration:7s;animation-delay:2.5s}
+.sh3{width:200px;top:58%;animation-duration:5.5s;animation-delay:4s}
+.sh4{width:90px;top:75%;animation-duration:8s;animation-delay:1.2s}
+@keyframes shootAnim{0%{left:-10%;opacity:0;transform:translateX(0)}5%{opacity:1}90%{opacity:.5}100%{left:110%;opacity:0}}
 
 /* ══ NAV ══ */
 nav{
   position:fixed;top:0;width:100%;z-index:1000;
-  height:68px;padding:0 70px;
+  height:72px;padding:0 80px;
   display:flex;align-items:center;justify-content:space-between;
-  background:rgba(2,6,20,0.72);
-  backdrop-filter:blur(22px);
-  border-bottom:1px solid rgba(6,182,212,0.1);
-  animation:navIn .8s ease both;
+  background:rgba(5,3,20,0.6);
+  backdrop-filter:blur(30px) saturate(1.8);
+  border-bottom:1px solid rgba(167,139,250,0.1);
+  animation:navIn .9s cubic-bezier(.23,1,.32,1) both;
 }
 @keyframes navIn{from{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:translateY(0)}}
 
 .logo{
-  font-family:'Syne',sans-serif;
-  font-size:1.55rem;font-weight:800;letter-spacing:-1px;
-  background:linear-gradient(90deg,#06b6d4,#7c3aed,#ec4899);
+  font-family:'Playfair Display',serif;
+  font-size:1.6rem;font-weight:900;letter-spacing:-1px;
+  background:linear-gradient(135deg,#c4b5fd,#f0abfc,#67e8f9);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  background-size:200%;animation:logoFlow 4s linear infinite;
+  background-size:300%;animation:logoFlow 6s linear infinite;
+  position:relative;
 }
-@keyframes logoFlow{from{background-position:0%}to{background-position:200%}}
+.logo::after{content:'®';font-size:.5rem;position:absolute;top:6px;right:-12px;color:rgba(167,139,250,0.5)}
+@keyframes logoFlow{0%{background-position:0%}100%{background-position:300%}}
 
-nav ul{list-style:none;display:flex;align-items:center;gap:36px}
+nav ul{list-style:none;display:flex;align-items:center;gap:40px}
 nav ul li a{
-  color:rgba(226,232,240,.55);font-size:.85rem;font-weight:500;
-  text-decoration:none;letter-spacing:.3px;transition:color .3s;position:relative;
+  color:rgba(240,244,255,.45);font-size:.82rem;font-weight:500;
+  text-decoration:none;letter-spacing:.8px;text-transform:uppercase;
+  transition:color .3s;position:relative;font-family:'DM Mono',monospace;
 }
-nav ul li a::after{
-  content:'';position:absolute;bottom:-5px;left:0;
-  width:0;height:1.5px;border-radius:2px;
-  background:linear-gradient(90deg,#06b6d4,#7c3aed);
-  transition:width .35s;
+nav ul li a::before{
+  content:attr(data-text);
+  position:absolute;top:0;left:0;
+  color:#c4b5fd;overflow:hidden;width:0;transition:width .4s cubic-bezier(.23,1,.32,1);
+  white-space:nowrap;
 }
-nav ul li a:hover{color:#e2e8f0}
-nav ul li a:hover::after{width:100%}
+nav ul li a:hover::before{width:100%}
+nav ul li a:hover{color:transparent}
 
 .nav-cta{
-  padding:10px 26px;
-  background:linear-gradient(135deg,#06b6d4,#7c3aed);
-  color:#fff!important;font-weight:700!important;font-size:.82rem!important;
-  border-radius:50px;text-decoration:none!important;
+  padding:10px 28px;
+  background:rgba(167,139,250,0.12);
+  border:1px solid rgba(167,139,250,0.35);
+  color:#c4b5fd!important;font-weight:600!important;
+  border-radius:4px;text-decoration:none!important;
   transition:all .3s!important;
-  box-shadow:0 0 20px rgba(6,182,212,.25);
+  font-family:'DM Sans',sans-serif!important;
+  letter-spacing:.5px!important;text-transform:uppercase!important;font-size:.75rem!important;
+  position:relative;overflow:hidden;
 }
-.nav-cta::after{display:none!important}
-.nav-cta:hover{transform:translateY(-2px)!important;box-shadow:0 8px 30px rgba(6,182,212,.45)!important}
-
-.hbg{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
-.hbg span{width:24px;height:2px;background:#06b6d4;border-radius:2px;display:block;transition:all .3s}
+.nav-cta::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(167,139,250,0.2),rgba(236,72,153,0.15));
+  opacity:0;transition:opacity .3s;
+}
+.nav-cta:hover{color:#fff!important;border-color:rgba(167,139,250,0.7)!important;transform:translateY(-2px)!important;box-shadow:0 8px 32px rgba(167,139,250,.3)!important}
+.nav-cta:hover::after{opacity:1}
+.nav-cta::before{display:none!important}
 
 /* ══ HERO ══ */
 .hero{
   position:relative;z-index:10;
   min-height:100vh;
   display:flex;align-items:center;
-  padding:68px 70px 60px;
-  gap:50px;
+  padding:72px 80px 60px;
+  gap:60px;
 }
 
-/* ── LEFT CONTENT ── */
-.hero-left{flex:1.1;max-width:600px}
+/* ── LEFT ── */
+.hero-left{flex:1.2;max-width:640px}
 
 /* Badge */
 .badge{
-  display:inline-flex;align-items:center;gap:10px;
-  padding:7px 20px;
-  border:1px solid rgba(6,182,212,.28);
-  border-radius:50px;
-  background:rgba(6,182,212,.07);
-  backdrop-filter:blur(8px);
-  margin-bottom:26px;
-  animation:fUp .7s ease .2s both;
+  display:inline-flex;align-items:center;gap:12px;
+  padding:8px 22px 8px 14px;
+  border:1px solid rgba(167,139,250,0.25);
+  border-radius:3px;
+  background:rgba(167,139,250,0.06);
+  backdrop-filter:blur(12px);
+  margin-bottom:32px;
+  animation:slideIn .8s cubic-bezier(.23,1,.32,1) .2s both;
 }
 .pdot{
-  width:8px;height:8px;border-radius:50%;background:#4ade80;
-  animation:pdotA 2s ease-in-out infinite;
+  width:9px;height:9px;border-radius:50%;background:#34d399;
+  box-shadow:0 0 12px rgba(52,211,153,0.7);
+  animation:pdotA 2.5s ease-in-out infinite;
 }
-@keyframes pdotA{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.5)}50%{box-shadow:0 0 0 8px rgba(74,222,128,0)}}
+@keyframes pdotA{0%,100%{box-shadow:0 0 0 0 rgba(52,211,153,0.5)}50%{box-shadow:0 0 0 10px rgba(52,211,153,0)}}
 .badge-txt{
-  font-family:'Syne',sans-serif;
-  font-size:.68rem;font-weight:700;letter-spacing:1.8px;
-  text-transform:uppercase;color:#06b6d4;
+  font-family:'DM Mono',monospace;
+  font-size:.65rem;font-weight:500;letter-spacing:2.5px;
+  text-transform:uppercase;color:rgba(196,181,253,0.75);
 }
+.badge-line{width:30px;height:1px;background:linear-gradient(90deg,#c4b5fd,transparent)}
 
-/* Hello */
-.hello{
-  font-size:1rem;color:rgba(226,232,240,.5);font-weight:400;
-  margin-bottom:6px;letter-spacing:.5px;
-  animation:fUp .7s ease .35s both;
+/* Eyebrow */
+.eyebrow{
+  font-family:'DM Mono',monospace;
+  font-size:.7rem;letter-spacing:4px;text-transform:uppercase;
+  color:rgba(167,139,250,0.6);margin-bottom:16px;
+  animation:slideIn .8s cubic-bezier(.23,1,.32,1) .35s both;
 }
 
 /* Name */
 .hero-name{
-  font-family:'Syne',sans-serif;
-  font-size:clamp(2.9rem,5.6vw,5.2rem);
-  font-weight:800;line-height:1;
-  letter-spacing:-2.5px;margin-bottom:16px;
-  animation:fUp .7s ease .5s both;
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3rem,5.5vw,5.8rem);
+  font-weight:900;line-height:0.95;
+  letter-spacing:-3px;margin-bottom:20px;
+  animation:slideIn .8s cubic-bezier(.23,1,.32,1) .5s both;
 }
-.n1{color:#ffffff}
+.n1{
+  display:block;color:#f0f4ff;
+  text-shadow:0 0 80px rgba(167,139,250,0.3);
+}
 .n2{
-  background:linear-gradient(135deg,#06b6d4 0%,#7c3aed 55%,#ec4899 100%);
+  display:block;
+  background:linear-gradient(135deg,#c4b5fd 0%,#f0abfc 45%,#67e8f9 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  background-size:200% 200%;animation:gShift 5s ease infinite;
+  background-size:200% 200%;animation:gShift 6s ease infinite;
+  font-style:italic;
 }
 @keyframes gShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
 /* Typewriter */
 .tw-row{
-  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
-  font-size:1.1rem;margin-bottom:20px;
-  animation:fUp .7s ease .65s both;
+  display:flex;align-items:center;gap:12px;
+  font-size:1.05rem;margin-bottom:24px;
+  animation:slideIn .8s cubic-bezier(.23,1,.32,1) .65s both;
 }
-.tw-pre{color:rgba(226,232,240,.5);font-weight:400}
-.tw-val{color:#06b6d4;font-weight:700;font-family:'Syne',sans-serif;min-width:4px}
+.tw-dash{width:24px;height:1.5px;background:rgba(167,139,250,0.5)}
+.tw-pre{color:rgba(240,244,255,.4);font-weight:300;font-size:.95rem}
+.tw-val{
+  color:#c4b5fd;font-weight:600;
+  font-family:'Playfair Display',serif;
+  font-style:italic;font-size:1.05rem;min-width:4px;
+}
 .tw-cur{
-  display:inline-block;width:2.5px;height:1.1em;
-  background:#06b6d4;vertical-align:middle;margin-left:2px;
-  animation:blinkC .85s step-end infinite;
+  display:inline-block;width:2px;height:1.1em;
+  background:#c4b5fd;vertical-align:middle;margin-left:3px;
+  animation:blinkC 1s step-end infinite;
 }
 @keyframes blinkC{0%,100%{opacity:1}50%{opacity:0}}
 
 /* Desc */
 .hero-desc{
-  font-size:.96rem;color:rgba(226,232,240,.55);line-height:1.85;
-  max-width:490px;margin-bottom:34px;
-  animation:fUp .7s ease .8s both;
+  font-size:.93rem;color:rgba(240,244,255,.45);line-height:2;
+  max-width:500px;margin-bottom:40px;
+  animation:slideIn .8s cubic-bezier(.23,1,.32,1) .8s both;
+  font-weight:300;
+  border-left:1px solid rgba(167,139,250,0.2);
+  padding-left:20px;
 }
-.hero-desc b{color:rgba(226,232,240,.9);font-weight:600}
+.hero-desc b{color:rgba(240,244,255,.8);font-weight:600}
 
 /* Buttons */
 .btns{
   display:flex;gap:16px;flex-wrap:wrap;
-  margin-bottom:44px;
-  animation:fUp .7s ease .95s both;
+  margin-bottom:48px;
+  animation:slideIn .8s cubic-bezier(.23,1,.32,1) .95s both;
 }
 .btn-main{
-  display:inline-flex;align-items:center;gap:10px;
-  padding:14px 34px;
-  background:linear-gradient(135deg,#06b6d4,#7c3aed);
-  color:#fff;font-family:'Syne',sans-serif;
-  font-size:.88rem;font-weight:700;
-  border-radius:50px;text-decoration:none;border:none;cursor:pointer;
-  transition:all .3s;box-shadow:0 4px 24px rgba(6,182,212,.22);
-  position:relative;overflow:hidden;
+  display:inline-flex;align-items:center;gap:12px;
+  padding:15px 36px;
+  background:linear-gradient(135deg,#7c3aed,#c026d3);
+  color:#fff;font-family:'DM Sans',sans-serif;
+  font-size:.82rem;font-weight:600;
+  border-radius:4px;text-decoration:none;border:none;cursor:pointer;
+  transition:all .35s cubic-bezier(.23,1,.32,1);
+  box-shadow:0 4px 30px rgba(124,58,237,.3),inset 0 1px 0 rgba(255,255,255,.15);
+  letter-spacing:.8px;text-transform:uppercase;position:relative;overflow:hidden;
 }
-.btn-main::before{
+.btn-main::after{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,#7c3aed,#ec4899);
-  opacity:0;transition:opacity .3s;
+  background:linear-gradient(135deg,#c026d3,#ec4899);
+  opacity:0;transition:opacity .35s;
 }
 .btn-main span{position:relative;z-index:1}
-.btn-main:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(6,182,212,.42)}
-.btn-main:hover::before{opacity:1}
+.btn-main:hover{transform:translateY(-3px);box-shadow:0 16px 50px rgba(124,58,237,.5),inset 0 1px 0 rgba(255,255,255,.2)}
+.btn-main:hover::after{opacity:1}
 
-.btn-wa{
-  display:inline-flex;align-items:center;gap:10px;
-  padding:14px 34px;background:transparent;
-  border:2px solid #25d366;color:#25d366;
-  font-family:'Syne',sans-serif;
-  font-size:.88rem;font-weight:700;
-  border-radius:50px;text-decoration:none;cursor:pointer;
-  transition:all .3s;
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:12px;
+  padding:14px 36px;background:transparent;
+  border:1px solid rgba(167,139,250,0.3);color:rgba(196,181,253,0.8);
+  font-family:'DM Sans',sans-serif;
+  font-size:.82rem;font-weight:600;
+  border-radius:4px;text-decoration:none;cursor:pointer;
+  transition:all .35s cubic-bezier(.23,1,.32,1);
+  letter-spacing:.8px;text-transform:uppercase;
+  backdrop-filter:blur(8px);
 }
-.btn-wa:hover{background:#25d366;color:#fff;transform:translateY(-3px);box-shadow:0 12px 36px rgba(37,211,102,.35)}
-.wa-ico{width:20px;height:20px;flex-shrink:0}
+.btn-ghost:hover{
+  background:rgba(167,139,250,0.08);color:#f0f4ff;
+  border-color:rgba(167,139,250,0.6);transform:translateY(-3px);
+  box-shadow:0 12px 40px rgba(167,139,250,.2);
+}
+.btn-icon{font-size:1rem}
 
 /* Skill tags */
 .stags{
-  display:flex;gap:9px;flex-wrap:wrap;
-  animation:fUp .7s ease 1.1s both;
+  display:flex;gap:8px;flex-wrap:wrap;
+  animation:slideIn .8s cubic-bezier(.23,1,.32,1) 1.1s both;
 }
 .stag{
   padding:5px 14px;
-  border:1px solid rgba(6,182,212,.18);
-  border-radius:50px;
-  background:rgba(6,182,212,.04);
-  font-size:.72rem;color:rgba(226,232,240,.55);font-weight:500;
-  transition:all .3s;letter-spacing:.3px;
+  border:1px solid rgba(167,139,250,0.12);
+  border-radius:2px;
+  background:rgba(167,139,250,0.04);
+  font-size:.68rem;color:rgba(240,244,255,.4);font-weight:500;
+  transition:all .3s;letter-spacing:.5px;text-transform:uppercase;
+  font-family:'DM Mono',monospace;
 }
-.stag:hover{border-color:#06b6d4;color:#06b6d4;background:rgba(6,182,212,.1);transform:translateY(-2px)}
+.stag:hover{border-color:rgba(196,181,253,0.4);color:#c4b5fd;background:rgba(167,139,250,0.08);transform:translateY(-2px)}
 
 /* Stats */
 .stats{
   display:flex;gap:0;
-  border:1px solid rgba(6,182,212,.1);
-  border-radius:16px;overflow:hidden;
-  background:rgba(255,255,255,.02);
-  backdrop-filter:blur(12px);
-  margin-top:30px;
-  animation:fUp .7s ease 1.25s both;
+  border:1px solid rgba(167,139,250,0.1);
+  border-radius:4px;overflow:hidden;
+  background:rgba(167,139,250,0.03);
+  backdrop-filter:blur(16px);
+  margin-top:36px;
+  animation:slideIn .8s cubic-bezier(.23,1,.32,1) 1.25s both;
 }
 .st{
-  flex:1;padding:18px 20px;text-align:center;
-  border-right:1px solid rgba(6,182,212,.1);
+  flex:1;padding:20px;text-align:center;
+  border-right:1px solid rgba(167,139,250,0.08);
+  position:relative;overflow:hidden;
+  transition:background .3s;
 }
+.st::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(124,58,237,0.08),rgba(236,72,153,0.06));
+  opacity:0;transition:opacity .4s;
+}
+.st:hover::before{opacity:1}
 .st:last-child{border-right:none}
 .st-n{
-  font-family:'Syne',sans-serif;
-  font-size:1.9rem;font-weight:800;line-height:1;
-  background:linear-gradient(135deg,#06b6d4,#7c3aed);
+  font-family:'Playfair Display',serif;
+  font-size:2.2rem;font-weight:900;line-height:1;
+  background:linear-gradient(135deg,#c4b5fd,#f0abfc);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  position:relative;z-index:1;
 }
-.st-l{font-size:.68rem;color:rgba(226,232,240,.4);font-weight:500;margin-top:5px;letter-spacing:.5px}
+.st-l{
+  font-size:.62rem;color:rgba(240,244,255,.3);font-weight:500;
+  margin-top:6px;letter-spacing:1.5px;text-transform:uppercase;
+  font-family:'DM Mono',monospace;position:relative;z-index:1;
+}
 
-@keyframes fUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideIn{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 
-/* ── RIGHT — ROBOT ── */
+/* ── RIGHT — ROBOT SCENE ── */
 .hero-right{
   flex:1;display:flex;justify-content:center;align-items:center;
   position:relative;
-  animation:heroR 1s ease .3s both;
+  animation:heroR 1s cubic-bezier(.23,1,.32,1) .3s both;
 }
-@keyframes heroR{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes heroR{from{opacity:0;transform:translateX(50px)}to{opacity:1;transform:translateX(0)}}
 
 .robot-scene{
   position:relative;
-  width:380px;height:540px;
+  width:420px;height:580px;
   display:flex;align-items:center;justify-content:center;
 }
 
@@ -293,172 +342,201 @@ nav ul li a:hover::after{width:100%}
 }
 .orb{
   position:absolute;border-radius:50%;
-  border:1px solid rgba(6,182,212,.1);
+  border:1px solid rgba(167,139,250,0.08);
   top:50%;left:50%;transform:translate(-50%,-50%);
 }
-.o1{width:260px;height:260px;animation:spin 14s linear infinite}
-.o2{width:340px;height:340px;animation:spin 22s linear infinite reverse;border-color:rgba(124,58,237,.09)}
-.o3{width:430px;height:430px;animation:spin 32s linear infinite;border-color:rgba(236,72,153,.06)}
+.o1{width:280px;height:280px;animation:spin 16s linear infinite;border-color:rgba(196,181,253,0.12)}
+.o2{width:380px;height:380px;animation:spin 24s linear infinite reverse;border-color:rgba(240,171,252,0.08)}
+.o3{width:480px;height:480px;animation:spin 36s linear infinite;border-color:rgba(103,232,249,0.06)}
 @keyframes spin{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
-
 .odot{position:absolute;border-radius:50%;top:-4px;left:50%;transform:translateX(-50%)}
-.o1 .odot{width:7px;height:7px;background:#06b6d4;box-shadow:0 0 10px #06b6d4}
-.o2 .odot{width:6px;height:6px;background:#7c3aed;box-shadow:0 0 10px #7c3aed}
-.o3 .odot{width:5px;height:5px;background:#ec4899;box-shadow:0 0 8px #ec4899}
+.o1 .odot{width:8px;height:8px;background:#c4b5fd;box-shadow:0 0 14px #c4b5fd,0 0 28px rgba(196,181,253,0.5)}
+.o2 .odot{width:6px;height:6px;background:#f0abfc;box-shadow:0 0 12px #f0abfc}
+.o3 .odot{width:5px;height:5px;background:#67e8f9;box-shadow:0 0 10px #67e8f9}
 
-/* Floating chips */
+/* Chips */
 .chip{
   position:absolute;z-index:30;
-  display:flex;align-items:center;gap:8px;
-  background:rgba(2,6,20,.92);
-  border:1px solid rgba(6,182,212,.2);
-  border-radius:12px;padding:9px 14px;
-  backdrop-filter:blur(16px);
-  box-shadow:0 8px 32px rgba(0,0,0,.6);
-  font-family:'Outfit',sans-serif;
+  display:flex;align-items:center;gap:10px;
+  background:rgba(5,3,20,0.92);
+  border:1px solid rgba(167,139,250,0.2);
+  border-radius:8px;padding:10px 16px;
+  backdrop-filter:blur(24px);
+  box-shadow:0 12px 40px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.04);
   font-size:.68rem;font-weight:600;white-space:nowrap;
-  animation:chipA 3s ease-in-out infinite;
+  animation:chipA 3.5s ease-in-out infinite;
 }
-.chip-i{font-size:1rem}
-.chip-v{color:#06b6d4;font-size:.75rem;font-weight:700}
-.chip-s{color:rgba(226,232,240,.4);font-size:.62rem}
-.c1{top:55px;left:-15px;animation-delay:0s}
-.c2{top:185px;right:-18px;animation-delay:.9s}
-.c3{bottom:190px;left:-22px;animation-delay:1.8s}
-.c4{bottom:100px;right:-14px;animation-delay:.45s}
-@keyframes chipA{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.chip-i{font-size:.9rem}
+.chip-v{color:#c4b5fd;font-size:.72rem;font-weight:700;font-family:'DM Mono',monospace;letter-spacing:.5px}
+.chip-s{color:rgba(240,244,255,.35);font-size:.6rem;font-family:'DM Sans',sans-serif;margin-top:2px}
+.c1{top:60px;left:-20px;animation-delay:0s}
+.c2{top:190px;right:-22px;animation-delay:1s}
+.c3{bottom:200px;left:-26px;animation-delay:2s}
+.c4{bottom:110px;right:-18px;animation-delay:.5s}
+@keyframes chipA{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 
-/* Scan line on robot */
+/* Scan line */
 .scan-ln{
-  position:absolute;left:80px;right:80px;
-  height:2px;z-index:20;pointer-events:none;
-  background:linear-gradient(90deg,transparent,rgba(6,182,212,.7),transparent);
-  animation:scanDown 3.5s linear infinite;
+  position:absolute;left:70px;right:70px;height:1.5px;z-index:20;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(196,181,253,0.6),transparent);
+  animation:scanDown 4s linear infinite;box-shadow:0 0 12px rgba(196,181,253,0.4);
 }
-@keyframes scanDown{0%{top:60px;opacity:1}85%{opacity:.8}100%{top:490px;opacity:0}}
+@keyframes scanDown{0%{top:50px;opacity:1}85%{opacity:.6}100%{top:520px;opacity:0}}
 
 /* Ground glow */
 .gnd{
-  position:absolute;bottom:8px;left:50%;transform:translateX(-50%);
-  width:220px;height:24px;
-  background:radial-gradient(ellipse,rgba(6,182,212,.28),transparent 70%);
-  filter:blur(10px);border-radius:50%;
-  animation:gndA 5s ease-in-out infinite;
+  position:absolute;bottom:5px;left:50%;transform:translateX(-50%);
+  width:240px;height:28px;
+  background:radial-gradient(ellipse,rgba(167,139,250,0.3),transparent 70%);
+  filter:blur(12px);border-radius:50%;
+  animation:gndA 4.5s ease-in-out infinite;
 }
-@keyframes gndA{0%,100%{opacity:.9;transform:translateX(-50%) scaleX(1)}50%{opacity:.4;transform:translateX(-50%) scaleX(.75)}}
+@keyframes gndA{0%,100%{opacity:.9;transform:translateX(-50%) scaleX(1)}50%{opacity:.4;transform:translateX(-50%) scaleX(.7)}}
 
 /* Robot SVG */
 .rsvg{
   position:relative;z-index:10;
-  width:290px;
-  filter:drop-shadow(0 0 28px rgba(6,182,212,.2)) drop-shadow(0 25px 55px rgba(0,0,0,.7));
-  animation:rbob 5s ease-in-out infinite;
+  width:310px;
+  filter:drop-shadow(0 0 30px rgba(167,139,250,0.2)) drop-shadow(0 30px 60px rgba(0,0,0,.8));
+  animation:rbob 5.5s ease-in-out infinite;
   transform-origin:center bottom;
 }
 @keyframes rbob{
   0%,100%{transform:translateY(0) rotate(0deg)}
-  28%{transform:translateY(-13px) rotate(.4deg)}
-  72%{transform:translateY(-8px) rotate(-.35deg)}
+  30%{transform:translateY(-14px) rotate(.5deg)}
+  70%{transform:translateY(-9px) rotate(-.4deg)}
+}
+
+/* ══ FLOATING DECORATIONS ══ */
+.deco-circle{
+  position:absolute;border-radius:50%;pointer-events:none;
+  border:1px solid rgba(167,139,250,0.12);
+  animation:decoSpin 20s linear infinite;
+}
+.dc1{width:160px;height:160px;top:10%;left:5%;animation-duration:25s}
+.dc2{width:80px;height:80px;bottom:20%;right:8%;animation-duration:15s;animation-direction:reverse}
+@keyframes decoSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+/* ══ SCROLL INDICATOR ══ */
+.scroll-ind{
+  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+  z-index:20;display:flex;flex-direction:column;align-items:center;gap:8px;
+  animation:slideIn 1s .5s both;
+}
+.scroll-line{
+  width:1px;height:60px;
+  background:linear-gradient(180deg,rgba(167,139,250,0.5),transparent);
+  animation:scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.scroll-txt{
+  font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:3px;
+  color:rgba(167,139,250,0.4);text-transform:uppercase;writing-mode:horizontal-tb;
 }
 
 /* ══ RESPONSIVE ══ */
-@media(max-width:1060px){
-  nav{padding:0 40px}
-  .hero{padding:68px 40px 50px;gap:30px}
-  .robot-scene{width:320px;height:480px}
-  .rsvg{width:250px}
-}
+@media(max-width:1060px){nav{padding:0 40px}.hero{padding:72px 40px 50px;gap:30px}.robot-scene{width:340px;height:500px}.rsvg{width:260px}}
 @media(max-width:800px){
-  nav{padding:0 24px}
-  nav ul{display:none}
-  .hbg{display:flex}
-  .hero{flex-direction:column;padding:80px 24px 70px;text-align:center;min-height:100dvh;gap:16px;align-items:center}
+  nav{padding:0 24px}nav ul{display:none}.hbg{display:flex}
+  .hero{flex-direction:column;padding:80px 24px 80px;text-align:center;min-height:100dvh;gap:20px;align-items:center}
   .hero-left{max-width:100%}
   .badge,.hero-desc{margin-left:auto;margin-right:auto}
   .tw-row,.btns,.stags{justify-content:center}
-  .hero-right{order:-1}
-  .robot-scene{width:268px;height:400px}
-  .rsvg{width:210px}
+  .hero-right{order:-1}.robot-scene{width:280px;height:420px}.rsvg{width:220px}
   .c1,.c2,.c3,.c4{display:none}
 }
 @media(max-width:460px){
-  .hero{padding:75px 18px 60px}
-  .hero-name{font-size:2.5rem;letter-spacing:-1.5px}
-  .rsvg{width:180px}
-  .robot-scene{width:230px;height:350px}
-  .btn-main,.btn-wa{padding:12px 24px;font-size:.82rem}
-  .stats{flex-direction:column}
-  .st{border-right:none;border-bottom:1px solid rgba(6,182,212,.1)}
-  .st:last-child{border-bottom:none}
+  .hero{padding:75px 18px 60px}.hero-name{font-size:2.7rem;letter-spacing:-2px}
+  .rsvg{width:190px}.robot-scene{width:240px;height:360px}
+  .btn-main,.btn-ghost{padding:12px 24px;font-size:.78rem}
+  .stats{flex-direction:column}.st{border-right:none;border-bottom:1px solid rgba(167,139,250,.08)}.st:last-child{border-bottom:none}
 }
+
+/* Hamburger */
+.hbg{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.hbg span{width:24px;height:1.5px;background:#c4b5fd;border-radius:1px;display:block;transition:all .35s}
+
+/* ══ PARTICLE COUNT DISPLAY ══ */
+#starCanvas{position:fixed;inset:0;z-index:1;pointer-events:none}
 </style>
 </head>
 <body>
 
-<!-- ═══ BG ═══ -->
-<div class="bg-image"></div>
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- BG -->
+<div class="bg-wrap">
+  <div class="bg-img"></div>
+  <div class="bg-over1"></div>
+  <div class="bg-over2"></div>
+  <div class="bg-over3"></div>
+  <div class="bg-over4"></div>
+</div>
+<div class="grain"></div>
 <canvas id="starCanvas"></canvas>
 <div class="bg-grid"></div>
-<div class="aurora au1"></div>
-<div class="aurora au2"></div>
-<div class="aurora au3"></div>
+<div class="orb-bg ob1"></div>
+<div class="orb-bg ob2"></div>
+<div class="orb-bg ob3"></div>
 <div class="shoot sh1"></div>
 <div class="shoot sh2"></div>
 <div class="shoot sh3"></div>
 <div class="shoot sh4"></div>
+<div class="deco-circle dc1"></div>
+<div class="deco-circle dc2"></div>
 
-<!-- ═══ NAV ═══ -->
+<!-- NAV -->
 <nav>
-  <div class="logo">MM.dev</div>
+  <div class="logo">MM</div>
   <ul id="navMenu">
-    <li><a href="#">Home</a></li>
-    <li><a href="#">Skills</a></li>
-    <li><a href="#">Projects</a></li>
-    <li><a href="#">Experience</a></li>
-    <li><a href="https://wa.me/918302010998" target="_blank" class="nav-cta">Hire Me ✦</a></li>
+    <li><a href="#" data-text="Home">Home</a></li>
+    <li><a href="#" data-text="Skills">Skills</a></li>
+    <li><a href="#" data-text="Projects">Projects</a></li>
+    <li><a href="#" data-text="Experience">Experience</a></li>
+    <li><a href="https://wa.me/918302010998" target="_blank" class="nav-cta">Hire Me →</a></li>
   </ul>
   <button class="hbg" id="hbg" onclick="toggleNav()">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
-<!-- ═══ HERO ═══ -->
+<!-- HERO -->
 <section class="hero">
 
-  <!-- LEFT -->
   <div class="hero-left">
-
     <div class="badge">
+      <span class="badge-line"></span>
       <span class="pdot"></span>
       <span class="badge-txt">Available for Freelance</span>
     </div>
 
-    <p class="hello">Hello, I'm</p>
+    <p class="eyebrow">// Full-Stack Web Developer</p>
 
     <h1 class="hero-name">
-      <span class="n1">Muskan</span><br>
+      <span class="n1">Muskan</span>
       <span class="n2">Motwani</span>
     </h1>
 
     <div class="tw-row">
-      <span class="tw-pre">I craft</span>
+      <span class="tw-dash"></span>
+      <span class="tw-pre">Crafting</span>
       <span class="tw-val" id="tw"></span><span class="tw-cur"></span>
     </div>
 
     <p class="hero-desc">
-      A <b>passionate Web Developer</b> from Ajmer building pixel-perfect
+      A <b>passionate Web Developer</b> from Ajmer, building pixel-perfect
       <b>WordPress websites</b>, high-converting <b>landing pages</b>,
-      and smart <b>Telegram bot automations</b> that grow real businesses.
+      and intelligent <b>Telegram bot automations</b> that scale real businesses.
     </p>
 
     <div class="btns">
       <a href="#" class="btn-main">
-        <span>🚀</span><span>View My Work</span>
+        <span class="btn-icon">✦</span><span>View My Work</span>
       </a>
-      <a href="https://wa.me/918302010998" target="_blank" class="btn-wa">
-        <svg class="wa-ico" viewBox="0 0 24 24" fill="#25d366">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-        </svg>
+      <a href="https://wa.me/918302010998" target="_blank" class="btn-ghost">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         WhatsApp Me
       </a>
     </div>
@@ -475,341 +553,321 @@ nav ul li a:hover::after{width:100%}
 
     <div class="stats">
       <div class="st">
-        <div class="st-n" id="s1">0</div>
+        <div class="st-n" id="s1">0+</div>
         <div class="st-l">Projects Done</div>
       </div>
       <div class="st">
-        <div class="st-n" id="s2">0</div>
+        <div class="st-n" id="s2">0+</div>
         <div class="st-l">Happy Clients</div>
       </div>
       <div class="st">
-        <div class="st-n" id="s3">0</div>
+        <div class="st-n" id="s3">0+</div>
         <div class="st-l">Years Exp</div>
       </div>
     </div>
-
   </div>
 
-  <!-- RIGHT — STANDING ROBOT -->
+  <!-- RIGHT — ROBOT -->
   <div class="hero-right" id="heroRight">
     <div class="robot-scene">
-
-      <!-- Orbit rings -->
       <div class="orb-wrap">
         <div class="orb o1"><div class="odot"></div></div>
         <div class="orb o2"><div class="odot"></div></div>
         <div class="orb o3"><div class="odot"></div></div>
       </div>
 
-      <!-- Floating chips -->
-      <div class="chip c1"><span class="chip-i">💻</span><div><div class="chip-v">WordPress</div><div class="chip-s">Expert</div></div></div>
+      <div class="chip c1"><span class="chip-i">💻</span><div><div class="chip-v">WordPress</div><div class="chip-s">Expert Level</div></div></div>
       <div class="chip c2"><span class="chip-i">🤖</span><div><div class="chip-v">Telegram Bot</div><div class="chip-s">Automation</div></div></div>
-      <div class="chip c3"><span class="chip-i">🎨</span><div><div class="chip-v">UI/UX</div><div class="chip-s">Responsive</div></div></div>
+      <div class="chip c3"><span class="chip-i">🎨</span><div><div class="chip-v">UI / UX</div><div class="chip-s">Responsive</div></div></div>
       <div class="chip c4"><span class="chip-i">⚡</span><div><div class="chip-v">SEO & Hosting</div><div class="chip-s">cPanel Pro</div></div></div>
 
-      <!-- Scan line -->
       <div class="scan-ln"></div>
 
-      <!-- ══════════ STANDING ROBOT SVG ══════════ -->
+      <!-- ROBOT SVG — Premium redesign -->
       <svg class="rsvg" viewBox="0 0 300 520" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <!-- Body gradient -->
           <linearGradient id="bdG" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#0e1535"/>
-            <stop offset="100%" stop-color="#070c22"/>
+            <stop offset="0%" stop-color="#16103a"/>
+            <stop offset="100%" stop-color="#090618"/>
           </linearGradient>
-          <!-- Cyan-violet -->
           <linearGradient id="cvG" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#06b6d4"/>
-            <stop offset="100%" stop-color="#7c3aed"/>
+            <stop offset="0%" stop-color="#c4b5fd"/>
+            <stop offset="100%" stop-color="#f0abfc"/>
           </linearGradient>
-          <!-- Violet-pink -->
           <linearGradient id="vpG" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stop-color="#7c3aed"/>
-            <stop offset="100%" stop-color="#ec4899"/>
+            <stop offset="100%" stop-color="#c026d3"/>
           </linearGradient>
-          <!-- Eye radial -->
           <radialGradient id="eyeG" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#06b6d4"/>
-            <stop offset="100%" stop-color="#7c3aed"/>
+            <stop offset="0%" stop-color="#c4b5fd"/>
+            <stop offset="70%" stop-color="#7c3aed"/>
+            <stop offset="100%" stop-color="#4c1d95"/>
           </radialGradient>
-
-          <!-- Glow filters -->
-          <filter id="g1" x="-40%" y="-40%" width="180%" height="180%">
-            <feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          <radialGradient id="glowG" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#f0abfc" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="glow1" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="5" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
-          <filter id="g2" x="-70%" y="-70%" width="240%" height="240%">
-            <feGaussianBlur stdDeviation="9" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          <filter id="glow2" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="12" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
-          <filter id="g3" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          <filter id="glow3" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="3" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
 
-        <!-- ── HALO behind robot ── -->
-        <ellipse cx="150" cy="260" rx="125" ry="195" fill="rgba(6,182,212,0.04)" filter="url(#g2)"/>
+        <!-- Ambient glow behind robot -->
+        <ellipse cx="150" cy="280" rx="110" ry="180" fill="url(#glowG)" filter="url(#glow2)"/>
 
         <!-- ── ANTENNA ── -->
-        <rect x="144" y="10" width="12" height="50" rx="6" fill="url(#bdG)" stroke="#06b6d4" stroke-width="1.3"/>
-        <!-- Pulse rings -->
-        <circle cx="150" cy="8" r="10" fill="rgba(6,182,212,.2)" filter="url(#g2)">
-          <animate attributeName="r" values="10;17;10" dur="2s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values=".8;.2;.8" dur="2s" repeatCount="indefinite"/>
+        <rect x="145" y="12" width="10" height="46" rx="5" fill="url(#bdG)" stroke="#c4b5fd" stroke-width="1"/>
+        <circle cx="150" cy="10" r="9" fill="rgba(196,181,253,0.15)" filter="url(#glow2)">
+          <animate attributeName="r" values="9;16;9" dur="2.2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values=".8;.1;.8" dur="2.2s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="150" cy="8" r="6" fill="#06b6d4" filter="url(#g1)">
-          <animate attributeName="opacity" values="1;.2;1" dur="2s" repeatCount="indefinite"/>
+        <circle cx="150" cy="10" r="5" fill="#c4b5fd" filter="url(#glow1)">
+          <animate attributeName="opacity" values="1;.3;1" dur="2.2s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="150" cy="8" r="22" fill="none" stroke="#06b6d4" stroke-width=".7" opacity=".3">
-          <animate attributeName="r" values="8;30;8" dur="2.2s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values=".5;0;.5" dur="2.2s" repeatCount="indefinite"/>
+        <circle cx="150" cy="10" r="20" fill="none" stroke="#c4b5fd" stroke-width=".6" opacity=".25">
+          <animate attributeName="r" values="8;28;8" dur="2.4s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values=".5;0;.5" dur="2.4s" repeatCount="indefinite"/>
         </circle>
 
         <!-- ── HEAD ── -->
-        <rect x="68" y="57" width="164" height="118" rx="22" fill="url(#bdG)" stroke="#06b6d4" stroke-width="1.8"/>
-        <rect x="78" y="66" width="144" height="100" rx="16" fill="#060b1a"/>
-        <!-- Head accent strips -->
-        <rect x="68" y="76" width="164" height="3" rx="1.5" fill="url(#cvG)" opacity=".18"/>
-        <rect x="68" y="160" width="164" height="2" rx="1" fill="url(#cvG)" opacity=".1"/>
+        <rect x="65" y="56" width="170" height="122" rx="24" fill="url(#bdG)" stroke="rgba(196,181,253,0.3)" stroke-width="1.5"/>
+        <rect x="74" y="65" width="152" height="104" rx="18" fill="#0a0620"/>
+        <!-- Subtle corner accents -->
+        <path d="M65 80 L65 56 L85 56" stroke="#c4b5fd" stroke-width="1.5" fill="none" opacity=".4"/>
+        <path d="M235 80 L235 56 L215 56" stroke="#f0abfc" stroke-width="1.5" fill="none" opacity=".4"/>
+        <path d="M65 158 L65 178 L85 178" stroke="#c4b5fd" stroke-width="1.5" fill="none" opacity=".3"/>
+        <path d="M235 158 L235 178 L215 178" stroke="#f0abfc" stroke-width="1.5" fill="none" opacity=".3"/>
 
-        <!-- Side ear panels -->
-        <rect x="58" y="78" width="12" height="35" rx="6" fill="#0a1025" stroke="#06b6d4" stroke-width=".9"/>
-        <rect x="61" y="84" width="6" height="5" rx="2.5" fill="#06b6d4" opacity=".7">
-          <animate attributeName="opacity" values=".7;1;.7" dur="1.1s" repeatCount="indefinite"/>
+        <!-- Ear panels -->
+        <rect x="54" y="78" width="13" height="38" rx="6.5" fill="#0c0925" stroke="rgba(196,181,253,0.25)" stroke-width=".9"/>
+        <rect x="57" y="85" width="7" height="5" rx="2.5" fill="#c4b5fd" opacity=".6">
+          <animate attributeName="opacity" values=".6;1;.6" dur="1.2s" repeatCount="indefinite"/>
         </rect>
-        <rect x="61" y="93" width="6" height="5" rx="2.5" fill="#7c3aed" opacity=".6">
+        <rect x="57" y="94" width="7" height="5" rx="2.5" fill="#f0abfc" opacity=".5">
+          <animate attributeName="opacity" values=".5;1;.5" dur="1.7s" repeatCount="indefinite"/>
+        </rect>
+        <rect x="233" y="78" width="13" height="38" rx="6.5" fill="#0c0925" stroke="rgba(240,171,252,0.25)" stroke-width=".9"/>
+        <rect x="236" y="85" width="7" height="5" rx="2.5" fill="#f0abfc" opacity=".6">
           <animate attributeName="opacity" values=".6;1;.6" dur="1.4s" repeatCount="indefinite"/>
         </rect>
-        <rect x="230" y="78" width="12" height="35" rx="6" fill="#0a1025" stroke="#7c3aed" stroke-width=".9"/>
-        <rect x="233" y="84" width="6" height="5" rx="2.5" fill="#7c3aed" opacity=".7">
-          <animate attributeName="opacity" values=".7;1;.7" dur="1.3s" repeatCount="indefinite"/>
-        </rect>
-        <rect x="233" y="93" width="6" height="5" rx="2.5" fill="#ec4899" opacity=".6">
-          <animate attributeName="opacity" values=".6;1;.6" dur=".9s" repeatCount="indefinite"/>
+        <rect x="236" y="94" width="7" height="5" rx="2.5" fill="#67e8f9" opacity=".5">
+          <animate attributeName="opacity" values=".5;1;.5" dur=".95s" repeatCount="indefinite"/>
         </rect>
 
         <!-- ── EYES ── -->
-        <!-- Left Eye -->
-        <rect x="84" y="78" width="54" height="36" rx="10" fill="#03060f" stroke="#06b6d4" stroke-width="1.3"/>
-        <rect x="88" y="82" width="46" height="28" rx="7" fill="url(#eyeG)" opacity=".9"/>
-        <circle cx="111" cy="96" r="11" fill="#06b6d4" filter="url(#g1)" opacity=".65"/>
-        <circle cx="111" cy="96" r="6" fill="#fff" opacity=".95"/>
-        <circle cx="113" cy="94" r="2.5" fill="rgba(6,182,212,.8)"/>
-        <!-- Blink -->
-        <rect x="88" y="82" width="46" height="28" rx="7" fill="#060b1a">
-          <animate attributeName="height" values="28;2;28" dur="5.5s" keyTimes="0;0.5;1" repeatCount="indefinite" begin="1.5s"/>
-          <animate attributeName="y" values="82;95;82" dur="5.5s" keyTimes="0;0.5;1" repeatCount="indefinite" begin="1.5s"/>
+        <!-- Left -->
+        <rect x="80" y="76" width="58" height="40" rx="12" fill="#050314" stroke="rgba(196,181,253,0.3)" stroke-width="1.2"/>
+        <rect x="84" y="80" width="50" height="32" rx="9" fill="url(#eyeG)" opacity=".85"/>
+        <circle cx="109" cy="96" r="12" fill="#c4b5fd" filter="url(#glow1)" opacity=".5"/>
+        <circle cx="109" cy="96" r="7" fill="white" opacity=".95"/>
+        <circle cx="111" cy="94" r="3" fill="rgba(124,58,237,0.7)"/>
+        <circle cx="112" cy="93" r="1.2" fill="white" opacity=".8"/>
+        <rect x="84" y="80" width="50" height="32" rx="9" fill="#0a0620">
+          <animate attributeName="height" values="32;2;32" dur="5s" keyTimes="0;0.5;1" repeatCount="indefinite" begin="2s"/>
+          <animate attributeName="y" values="80;96;80" dur="5s" keyTimes="0;0.5;1" repeatCount="indefinite" begin="2s"/>
         </rect>
-        <!-- Scan -->
-        <rect x="88" y="96" width="46" height="2.5" rx="1.5" fill="#fff" opacity=".3">
-          <animate attributeName="y" values="82;108;82" dur="2.8s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values=".3;.07;.3" dur="2.8s" repeatCount="indefinite"/>
-        </rect>
-
-        <!-- Right Eye -->
-        <rect x="162" y="78" width="54" height="36" rx="10" fill="#03060f" stroke="#7c3aed" stroke-width="1.3"/>
-        <rect x="166" y="82" width="46" height="28" rx="7" fill="url(#eyeG)" opacity=".9"/>
-        <circle cx="189" cy="96" r="11" fill="#7c3aed" filter="url(#g1)" opacity=".65"/>
-        <circle cx="189" cy="96" r="6" fill="#fff" opacity=".95"/>
-        <circle cx="191" cy="94" r="2.5" fill="rgba(124,58,237,.8)"/>
-        <rect x="166" y="82" width="46" height="28" rx="7" fill="#060b1a">
-          <animate attributeName="height" values="28;2;28" dur="5.5s" keyTimes="0;0.5;1" repeatCount="indefinite" begin="1.65s"/>
-          <animate attributeName="y" values="82;95;82" dur="5.5s" keyTimes="0;0.5;1" repeatCount="indefinite" begin="1.65s"/>
-        </rect>
-        <rect x="166" y="96" width="46" height="2.5" rx="1.5" fill="#fff" opacity=".3">
-          <animate attributeName="y" values="82;108;82" dur="2.8s" begin=".6s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values=".3;.07;.3" dur="2.8s" begin=".6s" repeatCount="indefinite"/>
+        <rect x="84" y="96" width="50" height="2" rx="1" fill="#c4b5fd" opacity=".25">
+          <animate attributeName="y" values="80;110;80" dur="3s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values=".25;.05;.25" dur="3s" repeatCount="indefinite"/>
         </rect>
 
-        <!-- ── NOSE LED ── -->
-        <circle cx="150" cy="122" r="3.5" fill="#7c3aed" filter="url(#g3)" opacity=".7"/>
+        <!-- Right -->
+        <rect x="162" y="76" width="58" height="40" rx="12" fill="#050314" stroke="rgba(240,171,252,0.3)" stroke-width="1.2"/>
+        <rect x="166" y="80" width="50" height="32" rx="9" fill="url(#eyeG)" opacity=".85"/>
+        <circle cx="191" cy="96" r="12" fill="#f0abfc" filter="url(#glow1)" opacity=".5"/>
+        <circle cx="191" cy="96" r="7" fill="white" opacity=".95"/>
+        <circle cx="193" cy="94" r="3" fill="rgba(192,38,211,0.7)"/>
+        <circle cx="194" cy="93" r="1.2" fill="white" opacity=".8"/>
+        <rect x="166" y="80" width="50" height="32" rx="9" fill="#0a0620">
+          <animate attributeName="height" values="32;2;32" dur="5s" keyTimes="0;0.5;1" repeatCount="indefinite" begin="2.2s"/>
+          <animate attributeName="y" values="80;96;80" dur="5s" keyTimes="0;0.5;1" repeatCount="indefinite" begin="2.2s"/>
+        </rect>
+        <rect x="166" y="96" width="50" height="2" rx="1" fill="#f0abfc" opacity=".25">
+          <animate attributeName="y" values="80;110;80" dur="3s" begin=".7s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values=".25;.05;.25" dur="3s" begin=".7s" repeatCount="indefinite"/>
+        </rect>
 
-        <!-- ── MOUTH — animated smile LEDs ── -->
-        <rect x="96" y="133" width="108" height="32" rx="10" fill="#03060f" stroke="url(#cvG)" stroke-width="1"/>
-        <!-- Smile arc -->
-        <path d="M108 149 Q150 165 192 149" stroke="url(#cvG)" stroke-width="2.5" stroke-linecap="round" fill="none" filter="url(#g3)">
-          <animate attributeName="d" values="M108 149 Q150 165 192 149;M108 149 Q150 157 192 149;M108 149 Q150 165 192 149" dur="3.5s" repeatCount="indefinite"/>
+        <!-- Nose LED -->
+        <circle cx="150" cy="126" r="3" fill="#67e8f9" filter="url(#glow3)" opacity=".65"/>
+
+        <!-- ── MOUTH ── -->
+        <rect x="92" y="135" width="116" height="34" rx="11" fill="#050314" stroke="url(#cvG)" stroke-width=".9"/>
+        <path d="M104 152 Q150 168 196 152" stroke="url(#cvG)" stroke-width="2.5" stroke-linecap="round" fill="none" filter="url(#glow3)">
+          <animate attributeName="d" values="M104 152 Q150 168 196 152;M104 152 Q150 160 196 152;M104 152 Q150 168 196 152" dur="4s" repeatCount="indefinite"/>
         </path>
         <!-- LED row -->
-        <circle cx="112" cy="142" r="2.8" fill="#06b6d4"><animate attributeName="opacity" values="1;.15;1" dur=".65s" begin="0s" repeatCount="indefinite"/></circle>
-        <circle cx="124" cy="142" r="2.8" fill="#7c3aed"><animate attributeName="opacity" values=".15;1;.15" dur=".65s" begin=".1s" repeatCount="indefinite"/></circle>
-        <circle cx="136" cy="142" r="2.8" fill="#06b6d4"><animate attributeName="opacity" values="1;.15;1" dur=".65s" begin=".2s" repeatCount="indefinite"/></circle>
-        <circle cx="148" cy="142" r="2.8" fill="#ec4899"><animate attributeName="opacity" values=".15;1;.15" dur=".65s" begin=".3s" repeatCount="indefinite"/></circle>
-        <circle cx="160" cy="142" r="2.8" fill="#06b6d4"><animate attributeName="opacity" values="1;.15;1" dur=".65s" begin=".4s" repeatCount="indefinite"/></circle>
-        <circle cx="172" cy="142" r="2.8" fill="#7c3aed"><animate attributeName="opacity" values=".15;1;.15" dur=".65s" begin=".5s" repeatCount="indefinite"/></circle>
-        <circle cx="184" cy="142" r="2.8" fill="#06b6d4"><animate attributeName="opacity" values="1;.15;1" dur=".65s" begin=".18s" repeatCount="indefinite"/></circle>
-        <circle cx="196" cy="142" r="2.8" fill="#ec4899"><animate attributeName="opacity" values=".15;1;.15" dur=".65s" begin=".28s" repeatCount="indefinite"/></circle>
+        <circle cx="108" cy="143" r="2.5" fill="#c4b5fd"><animate attributeName="opacity" values="1;.1;1" dur=".7s" begin="0s" repeatCount="indefinite"/></circle>
+        <circle cx="120" cy="143" r="2.5" fill="#f0abfc"><animate attributeName="opacity" values=".1;1;.1" dur=".7s" begin=".12s" repeatCount="indefinite"/></circle>
+        <circle cx="132" cy="143" r="2.5" fill="#c4b5fd"><animate attributeName="opacity" values="1;.1;1" dur=".7s" begin=".24s" repeatCount="indefinite"/></circle>
+        <circle cx="144" cy="143" r="2.5" fill="#67e8f9"><animate attributeName="opacity" values=".1;1;.1" dur=".7s" begin=".36s" repeatCount="indefinite"/></circle>
+        <circle cx="156" cy="143" r="2.5" fill="#c4b5fd"><animate attributeName="opacity" values="1;.1;1" dur=".7s" begin=".48s" repeatCount="indefinite"/></circle>
+        <circle cx="168" cy="143" r="2.5" fill="#f0abfc"><animate attributeName="opacity" values=".1;1;.1" dur=".7s" begin=".6s" repeatCount="indefinite"/></circle>
+        <circle cx="180" cy="143" r="2.5" fill="#c4b5fd"><animate attributeName="opacity" values="1;.1;1" dur=".7s" begin=".2s" repeatCount="indefinite"/></circle>
+        <circle cx="192" cy="143" r="2.5" fill="#67e8f9"><animate attributeName="opacity" values=".1;1;.1" dur=".7s" begin=".32s" repeatCount="indefinite"/></circle>
 
         <!-- ── NECK ── -->
-        <rect x="122" y="175" width="56" height="26" rx="6" fill="url(#bdG)" stroke="url(#cvG)" stroke-width="1"/>
-        <rect x="128" y="179" width="44" height="6" rx="3" fill="url(#cvG)" opacity=".22"/>
-        <rect x="128" y="188" width="44" height="5" rx="2.5" fill="url(#cvG)" opacity=".1"/>
+        <rect x="124" y="178" width="52" height="24" rx="7" fill="url(#bdG)" stroke="rgba(196,181,253,0.2)" stroke-width=".9"/>
+        <rect x="130" y="182" width="40" height="5" rx="2.5" fill="url(#cvG)" opacity=".2"/>
+        <rect x="130" y="190" width="40" height="4" rx="2" fill="url(#cvG)" opacity=".1"/>
 
         <!-- ── TORSO ── -->
-        <rect x="56" y="198" width="188" height="168" rx="24" fill="url(#bdG)" stroke="#06b6d4" stroke-width="1.8"/>
-        <rect x="66" y="208" width="168" height="7" rx="3.5" fill="url(#cvG)" opacity=".12"/>
-        <rect x="66" y="356" width="168" height="3" rx="1.5" fill="url(#cvG)" opacity=".07"/>
+        <rect x="55" y="200" width="190" height="168" rx="26" fill="url(#bdG)" stroke="rgba(196,181,253,0.2)" stroke-width="1.5"/>
+        <!-- Corner accents -->
+        <path d="M55 220 L55 200 L78 200" stroke="#c4b5fd" stroke-width="1" fill="none" opacity=".3"/>
+        <path d="M245 220 L245 200 L222 200" stroke="#f0abfc" stroke-width="1" fill="none" opacity=".3"/>
 
         <!-- ── CHEST REACTOR ── -->
-        <circle cx="150" cy="276" r="44" fill="rgba(6,182,212,.05)" stroke="url(#cvG)" stroke-width="1.5" filter="url(#g3)"/>
-        <circle cx="150" cy="276" r="34" fill="#04080c" stroke="url(#vpG)" stroke-width="1"/>
-        <circle cx="150" cy="276" r="22" fill="url(#eyeG)" filter="url(#g2)" opacity=".88">
-          <animate attributeName="r" values="22;28;22" dur="3s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values=".88;.4;.88" dur="3s" repeatCount="indefinite"/>
+        <circle cx="150" cy="278" r="46" fill="rgba(124,58,237,0.04)" stroke="rgba(196,181,253,0.12)" stroke-width="1"/>
+        <circle cx="150" cy="278" r="35" fill="#060316" stroke="rgba(196,181,253,0.18)" stroke-width="1"/>
+        <circle cx="150" cy="278" r="23" fill="url(#eyeG)" filter="url(#glow2)" opacity=".8">
+          <animate attributeName="r" values="23;30;23" dur="3.5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values=".8;.35;.8" dur="3.5s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="150" cy="276" r="9" fill="#fff" opacity=".95" filter="url(#g1)">
-          <animate attributeName="opacity" values=".95;.3;.95" dur="2.2s" repeatCount="indefinite"/>
+        <circle cx="150" cy="278" r="10" fill="white" opacity=".9" filter="url(#glow1)">
+          <animate attributeName="opacity" values=".9;.25;.9" dur="2.5s" repeatCount="indefinite"/>
         </circle>
-        <!-- Spin rings -->
-        <circle cx="150" cy="276" r="39" fill="none" stroke="url(#cvG)" stroke-width="1.3" stroke-dasharray="8,11" opacity=".45">
-          <animateTransform attributeName="transform" type="rotate" from="0 150 276" to="360 150 276" dur="6s" repeatCount="indefinite"/>
+        <!-- Spinning rings -->
+        <circle cx="150" cy="278" r="41" fill="none" stroke="url(#cvG)" stroke-width="1.2" stroke-dasharray="6,10" opacity=".4">
+          <animateTransform attributeName="transform" type="rotate" from="0 150 278" to="360 150 278" dur="7s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="150" cy="276" r="30" fill="none" stroke="url(#vpG)" stroke-width=".9" stroke-dasharray="4,9" opacity=".3">
-          <animateTransform attributeName="transform" type="rotate" from="360 150 276" to="0 150 276" dur="4s" repeatCount="indefinite"/>
-        </circle>
-
-        <!-- ── LEFT CHEST PANEL ── -->
-        <rect x="70" y="220" width="56" height="50" rx="10" fill="#080d1e" stroke="#06b6d4" stroke-width=".9"/>
-        <rect x="75" y="225" width="46" height="4" rx="2" fill="#06b6d4" opacity=".55"/>
-        <rect x="75" y="232" width="30" height="3" rx="1.5" fill="#7c3aed" opacity=".5"/>
-        <rect x="75" y="238" width="42" height="3" rx="1.5" fill="#06b6d4" opacity=".3"/>
-        <rect x="75" y="244" width="22" height="3" rx="1.5" fill="#ec4899" opacity=".4"/>
-        <rect x="75" y="250" width="36" height="3" rx="1.5" fill="#06b6d4" opacity=".2"/>
-        <!-- Mini bars -->
-        <rect x="75" y="258" width="5" height="8" rx="2" fill="#06b6d4"><animate attributeName="height" values="8;14;4;14;8" dur="1.3s" repeatCount="indefinite"/><animate attributeName="y" values="258;252;262;252;258" dur="1.3s" repeatCount="indefinite"/></rect>
-        <rect x="83" y="258" width="5" height="8" rx="2" fill="#7c3aed"><animate attributeName="height" values="14;4;8;4;14" dur="1s" repeatCount="indefinite"/><animate attributeName="y" values="252;262;258;262;252" dur="1s" repeatCount="indefinite"/></rect>
-        <rect x="91" y="258" width="5" height="8" rx="2" fill="#06b6d4"><animate attributeName="height" values="4;12;8;12;4" dur=".9s" repeatCount="indefinite"/><animate attributeName="y" values="262;254;258;254;262" dur=".9s" repeatCount="indefinite"/></rect>
-        <rect x="99" y="258" width="5" height="8" rx="2" fill="#ec4899"><animate attributeName="height" values="10;4;14;4;10" dur="1.1s" repeatCount="indefinite"/><animate attributeName="y" values="256;262;252;262;256" dur="1.1s" repeatCount="indefinite"/></rect>
-        <rect x="107" y="258" width="5" height="8" rx="2" fill="#06b6d4"><animate attributeName="height" values="6;14;4;14;6" dur=".8s" repeatCount="indefinite"/><animate attributeName="y" values="260;252;262;252;260" dur=".8s" repeatCount="indefinite"/></rect>
-
-        <!-- ── RIGHT CHEST PANEL ── -->
-        <rect x="174" y="220" width="56" height="50" rx="10" fill="#080d1e" stroke="#7c3aed" stroke-width=".9"/>
-        <rect x="179" y="225" width="46" height="4" rx="2" fill="#7c3aed" opacity=".55"/>
-        <rect x="179" y="232" width="30" height="3" rx="1.5" fill="#06b6d4" opacity=".5"/>
-        <rect x="179" y="238" width="42" height="3" rx="1.5" fill="#7c3aed" opacity=".3"/>
-        <rect x="179" y="244" width="22" height="3" rx="1.5" fill="#ec4899" opacity=".4"/>
-        <rect x="179" y="250" width="36" height="3" rx="1.5" fill="#7c3aed" opacity=".2"/>
-        <!-- Circular progress right -->
-        <circle cx="199" cy="266" r="12" fill="none" stroke="#0a1025" stroke-width="3.5"/>
-        <circle cx="199" cy="266" r="12" fill="none" stroke="url(#cvG)" stroke-width="3.5" stroke-dasharray="50 26" stroke-linecap="round">
-          <animateTransform attributeName="transform" type="rotate" from="-90 199 266" to="270 199 266" dur="4.5s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="199" cy="266" r="6" fill="url(#eyeG)" opacity=".5"/>
-        <!-- Signal bars -->
-        <rect x="217" y="267" width="5" height="7" rx="2" fill="#06b6d4" opacity=".5"/>
-        <rect x="224" y="263" width="5" height="11" rx="2" fill="#06b6d4" opacity=".7"/>
-
-        <!-- ── LOWER PANELS ── -->
-        <!-- Left lower -->
-        <rect x="70" y="316" width="56" height="50" rx="10" fill="#080d1e" stroke="#06b6d4" stroke-width=".8"/>
-        <rect x="75" y="321" width="46" height="3.5" rx="1.8" fill="#06b6d4" opacity=".32"><animate attributeName="opacity" values=".32;.82;.32" dur="1.2s" repeatCount="indefinite" begin="0s"/></rect>
-        <rect x="75" y="328" width="46" height="3.5" rx="1.8" fill="#06b6d4" opacity=".32"><animate attributeName="opacity" values=".32;.82;.32" dur="1.2s" repeatCount="indefinite" begin=".24s"/></rect>
-        <rect x="75" y="335" width="46" height="3.5" rx="1.8" fill="#7c3aed" opacity=".28"><animate attributeName="opacity" values=".28;.78;.28" dur="1.2s" repeatCount="indefinite" begin=".48s"/></rect>
-        <rect x="75" y="342" width="46" height="3.5" rx="1.8" fill="#06b6d4" opacity=".28"><animate attributeName="opacity" values=".28;.78;.28" dur="1.2s" repeatCount="indefinite" begin=".72s"/></rect>
-        <rect x="75" y="349" width="32" height="3.5" rx="1.8" fill="#ec4899" opacity=".25"><animate attributeName="opacity" values=".25;.7;.25" dur="1.5s" repeatCount="indefinite"/></rect>
-        <rect x="75" y="356" width="46" height="3.5" rx="1.8" fill="#06b6d4" opacity=".2"><animate attributeName="opacity" values=".2;.6;.2" dur="1.2s" repeatCount="indefinite" begin=".96s"/></rect>
-
-        <!-- Right lower -->
-        <rect x="174" y="316" width="56" height="50" rx="10" fill="#080d1e" stroke="#7c3aed" stroke-width=".8"/>
-        <rect x="179" y="321" width="46" height="3.5" rx="1.8" fill="#7c3aed" opacity=".32"><animate attributeName="opacity" values=".32;.82;.32" dur="1.4s" repeatCount="indefinite" begin="0s"/></rect>
-        <rect x="179" y="328" width="46" height="3.5" rx="1.8" fill="#7c3aed" opacity=".32"><animate attributeName="opacity" values=".32;.82;.32" dur="1.4s" repeatCount="indefinite" begin=".28s"/></rect>
-        <rect x="179" y="335" width="46" height="3.5" rx="1.8" fill="#06b6d4" opacity=".28"><animate attributeName="opacity" values=".28;.78;.28" dur="1.4s" repeatCount="indefinite" begin=".56s"/></rect>
-        <rect x="179" y="342" width="46" height="3.5" rx="1.8" fill="#7c3aed" opacity=".28"><animate attributeName="opacity" values=".28;.78;.28" dur="1.4s" repeatCount="indefinite" begin=".84s"/></rect>
-        <rect x="179" y="349" width="32" height="3.5" rx="1.8" fill="#ec4899" opacity=".25"><animate attributeName="opacity" values=".25;.7;.25" dur="1.2s" repeatCount="indefinite"/></rect>
-        <rect x="179" y="356" width="46" height="3.5" rx="1.8" fill="#7c3aed" opacity=".2"><animate attributeName="opacity" values=".2;.6;.2" dur="1.4s" repeatCount="indefinite" begin="1.12s"/></rect>
-
-        <!-- ── SHOULDER JOINTS ── -->
-        <circle cx="50" cy="218" r="16" fill="#080d1e" stroke="#06b6d4" stroke-width="1.6"/>
-        <circle cx="50" cy="218" r="8" fill="url(#eyeG)" opacity=".5" filter="url(#g3)">
-          <animate attributeName="opacity" values=".5;1;.5" dur="2.4s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="50" cy="218" r="3.5" fill="#06b6d4"/>
-
-        <circle cx="250" cy="218" r="16" fill="#080d1e" stroke="#7c3aed" stroke-width="1.6"/>
-        <circle cx="250" cy="218" r="8" fill="url(#vpG)" opacity=".5" filter="url(#g3)">
-          <animate attributeName="opacity" values=".5;1;.5" dur="2.4s" begin=".8s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="250" cy="218" r="3.5" fill="#7c3aed"/>
-
-        <!-- ── LEFT ARM ── -->
-        <rect x="16" y="208" width="36" height="128" rx="16" fill="url(#bdG)" stroke="#06b6d4" stroke-width="1.3"/>
-        <rect x="20" y="220" width="14" height="64" rx="7" fill="rgba(6,182,212,.05)"/>
-        <rect x="20" y="222" width="28" height="4" rx="2" fill="#06b6d4" opacity=".3"/>
-        <rect x="20" y="230" width="28" height="3" rx="1.5" fill="#06b6d4" opacity=".14"/>
-        <rect x="16" y="290" width="36" height="10" rx="5" fill="#06070f" stroke="#06b6d4" stroke-width=".8"/>
-
-        <!-- Left Hand -->
-        <rect x="12" y="334" width="44" height="38" rx="12" fill="url(#bdG)" stroke="#06b6d4" stroke-width="1.3"/>
-        <rect x="14" y="340" width="40" height="5" rx="2.5" fill="url(#cvG)" opacity=".18"/>
-        <!-- Fingers L -->
-        <rect x="14" y="368" width="9" height="20" rx="4.5" fill="url(#bdG)" stroke="#06b6d4" stroke-width="1"/>
-        <rect x="25" y="368" width="9" height="22" rx="4.5" fill="url(#bdG)" stroke="#06b6d4" stroke-width="1"/>
-        <rect x="36" y="368" width="9" height="22" rx="4.5" fill="url(#bdG)" stroke="#06b6d4" stroke-width="1"/>
-        <rect x="47" y="368" width="9" height="18" rx="4.5" fill="url(#bdG)" stroke="#06b6d4" stroke-width="1"/>
-        <!-- Thumb L -->
-        <rect x="6" y="343" width="8" height="18" rx="4" fill="url(#bdG)" stroke="#06b6d4" stroke-width=".9" transform="rotate(-15 10 352)"/>
-
-        <!-- ── RIGHT ARM ── -->
-        <rect x="248" y="208" width="36" height="128" rx="16" fill="url(#bdG)" stroke="#7c3aed" stroke-width="1.3"/>
-        <rect x="250" y="220" width="14" height="64" rx="7" fill="rgba(124,58,237,.05)"/>
-        <rect x="252" y="222" width="28" height="4" rx="2" fill="#7c3aed" opacity=".3"/>
-        <rect x="252" y="230" width="28" height="3" rx="1.5" fill="#7c3aed" opacity=".14"/>
-        <rect x="248" y="290" width="36" height="10" rx="5" fill="#06070f" stroke="#7c3aed" stroke-width=".8"/>
-
-        <!-- Right Hand -->
-        <rect x="244" y="334" width="44" height="38" rx="12" fill="url(#bdG)" stroke="#7c3aed" stroke-width="1.3"/>
-        <rect x="246" y="340" width="40" height="5" rx="2.5" fill="url(#vpG)" opacity=".18"/>
-        <!-- Fingers R -->
-        <rect x="244" y="368" width="9" height="20" rx="4.5" fill="url(#bdG)" stroke="#7c3aed" stroke-width="1"/>
-        <rect x="255" y="368" width="9" height="22" rx="4.5" fill="url(#bdG)" stroke="#7c3aed" stroke-width="1"/>
-        <rect x="266" y="368" width="9" height="22" rx="4.5" fill="url(#bdG)" stroke="#7c3aed" stroke-width="1"/>
-        <rect x="277" y="368" width="9" height="18" rx="4.5" fill="url(#bdG)" stroke="#7c3aed" stroke-width="1"/>
-        <!-- Thumb R -->
-        <rect x="286" y="343" width="8" height="18" rx="4" fill="url(#bdG)" stroke="#7c3aed" stroke-width=".9" transform="rotate(15 290 352)"/>
-
-        <!-- ── WAIST BELT ── -->
-        <rect x="70" y="362" width="160" height="24" rx="11" fill="#06070f" stroke="url(#cvG)" stroke-width="1.4"/>
-        <rect x="78" y="367" width="144" height="5" rx="2.5" fill="url(#cvG)" opacity=".42"/>
-        <rect x="78" y="375" width="144" height="3" rx="1.5" fill="url(#cvG)" opacity=".1"/>
-        <!-- Belt buckle -->
-        <rect x="134" y="364" width="32" height="20" rx="6" fill="#080d1e" stroke="url(#cvG)" stroke-width="1"/>
-        <circle cx="150" cy="374" r="6" fill="url(#eyeG)" opacity=".85" filter="url(#g3)">
-          <animate attributeName="opacity" values=".85;.3;.85" dur="1.8s" repeatCount="indefinite"/>
+        <circle cx="150" cy="278" r="32" fill="none" stroke="url(#vpG)" stroke-width=".8" stroke-dasharray="3,8" opacity=".3">
+          <animateTransform attributeName="transform" type="rotate" from="360 150 278" to="0 150 278" dur="5s" repeatCount="indefinite"/>
         </circle>
 
-        <!-- ── LEFT LEG ── -->
-        <rect x="78" y="383" width="58" height="112" rx="19" fill="url(#bdG)" stroke="#06b6d4" stroke-width="1.4"/>
-        <rect x="82" y="394" width="18" height="72" rx="9" fill="rgba(6,182,212,.05)"/>
-        <rect x="82" y="396" width="50" height="4" rx="2" fill="#06b6d4" opacity=".24"/>
-        <!-- Knee -->
-        <rect x="78" y="450" width="58" height="14" rx="7" fill="#06070f" stroke="#06b6d4" stroke-width=".9"/>
+        <!-- Left panel -->
+        <rect x="68" y="220" width="58" height="52" rx="11" fill="#080516" stroke="rgba(196,181,253,0.15)" stroke-width=".8"/>
+        <rect x="73" y="225" width="48" height="4" rx="2" fill="#c4b5fd" opacity=".45"/>
+        <rect x="73" y="232" width="32" height="3" rx="1.5" fill="#f0abfc" opacity=".4"/>
+        <rect x="73" y="238" width="44" height="3" rx="1.5" fill="#c4b5fd" opacity=".25"/>
+        <rect x="73" y="244" width="24" height="3" rx="1.5" fill="#67e8f9" opacity=".35"/>
+        <rect x="73" y="250" width="38" height="3" rx="1.5" fill="#c4b5fd" opacity=".15"/>
+        <!-- Bars -->
+        <rect x="73" y="259" width="5" height="9" rx="2" fill="#c4b5fd"><animate attributeName="height" values="9;15;5;15;9" dur="1.4s" repeatCount="indefinite"/><animate attributeName="y" values="259;253;263;253;259" dur="1.4s" repeatCount="indefinite"/></rect>
+        <rect x="81" y="259" width="5" height="9" rx="2" fill="#f0abfc"><animate attributeName="height" values="15;4;9;4;15" dur="1.1s" repeatCount="indefinite"/><animate attributeName="y" values="253;263;259;263;253" dur="1.1s" repeatCount="indefinite"/></rect>
+        <rect x="89" y="259" width="5" height="9" rx="2" fill="#c4b5fd"><animate attributeName="height" values="4;12;9;12;4" dur="1s" repeatCount="indefinite"/><animate attributeName="y" values="263;255;259;255;263" dur="1s" repeatCount="indefinite"/></rect>
+        <rect x="97" y="259" width="5" height="9" rx="2" fill="#67e8f9"><animate attributeName="height" values="10;4;14;4;10" dur="1.2s" repeatCount="indefinite"/><animate attributeName="y" values="257;263;253;263;257" dur="1.2s" repeatCount="indefinite"/></rect>
+        <rect x="105" y="259" width="5" height="9" rx="2" fill="#c4b5fd"><animate attributeName="height" values="6;14;5;14;6" dur=".9s" repeatCount="indefinite"/><animate attributeName="y" values="261;253;263;253;261" dur=".9s" repeatCount="indefinite"/></rect>
 
-        <!-- Left Foot -->
-        <rect x="68" y="490" width="78" height="24" rx="9" fill="url(#bdG)" stroke="#06b6d4" stroke-width="1.3"/>
-        <rect x="58" y="491" width="16" height="19" rx="8" fill="url(#bdG)" stroke="#06b6d4" stroke-width="1" transform="rotate(-6 66 500)"/>
-        <ellipse cx="107" cy="513" rx="36" ry="5" fill="rgba(6,182,212,.22)" filter="url(#g3)"/>
+        <!-- Right panel -->
+        <rect x="174" y="220" width="58" height="52" rx="11" fill="#080516" stroke="rgba(240,171,252,0.15)" stroke-width=".8"/>
+        <rect x="179" y="225" width="48" height="4" rx="2" fill="#f0abfc" opacity=".45"/>
+        <rect x="179" y="232" width="32" height="3" rx="1.5" fill="#c4b5fd" opacity=".4"/>
+        <rect x="179" y="238" width="44" height="3" rx="1.5" fill="#f0abfc" opacity=".25"/>
+        <rect x="179" y="244" width="24" height="3" rx="1.5" fill="#67e8f9" opacity=".35"/>
+        <circle cx="199" cy="261" r="12" fill="none" stroke="#0a0620" stroke-width="3.5"/>
+        <circle cx="199" cy="261" r="12" fill="none" stroke="url(#cvG)" stroke-width="3.5" stroke-dasharray="50 26" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" from="-90 199 261" to="270 199 261" dur="4s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="199" cy="261" r="6" fill="url(#eyeG)" opacity=".4"/>
 
-        <!-- ── RIGHT LEG ── -->
-        <rect x="164" y="383" width="58" height="112" rx="19" fill="url(#bdG)" stroke="#7c3aed" stroke-width="1.4"/>
-        <rect x="168" y="394" width="18" height="72" rx="9" fill="rgba(124,58,237,.05)"/>
-        <rect x="168" y="396" width="50" height="4" rx="2" fill="#7c3aed" opacity=".24"/>
-        <rect x="164" y="450" width="58" height="14" rx="7" fill="#06070f" stroke="#7c3aed" stroke-width=".9"/>
+        <!-- Lower panels -->
+        <rect x="68" y="316" width="58" height="52" rx="11" fill="#080516" stroke="rgba(196,181,253,0.12)" stroke-width=".7"/>
+        <rect x="73" y="322" width="48" height="3" rx="1.5" fill="#c4b5fd" opacity=".3"><animate attributeName="opacity" values=".3;.8;.3" dur="1.3s" repeatCount="indefinite" begin="0s"/></rect>
+        <rect x="73" y="329" width="48" height="3" rx="1.5" fill="#c4b5fd" opacity=".3"><animate attributeName="opacity" values=".3;.8;.3" dur="1.3s" repeatCount="indefinite" begin=".26s"/></rect>
+        <rect x="73" y="336" width="48" height="3" rx="1.5" fill="#f0abfc" opacity=".25"><animate attributeName="opacity" values=".25;.7;.25" dur="1.3s" repeatCount="indefinite" begin=".52s"/></rect>
+        <rect x="73" y="343" width="48" height="3" rx="1.5" fill="#c4b5fd" opacity=".25"><animate attributeName="opacity" values=".25;.7;.25" dur="1.3s" repeatCount="indefinite" begin=".78s"/></rect>
+        <rect x="73" y="350" width="34" height="3" rx="1.5" fill="#67e8f9" opacity=".2"><animate attributeName="opacity" values=".2;.65;.2" dur="1.6s" repeatCount="indefinite"/></rect>
+        <rect x="73" y="357" width="48" height="3" rx="1.5" fill="#c4b5fd" opacity=".18"><animate attributeName="opacity" values=".18;.55;.18" dur="1.3s" repeatCount="indefinite" begin="1.04s"/></rect>
 
-        <!-- Right Foot -->
-        <rect x="154" y="490" width="78" height="24" rx="9" fill="url(#bdG)" stroke="#7c3aed" stroke-width="1.3"/>
-        <rect x="226" y="491" width="16" height="19" rx="8" fill="url(#bdG)" stroke="#7c3aed" stroke-width="1" transform="rotate(6 234 500)"/>
-        <ellipse cx="193" cy="513" rx="36" ry="5" fill="rgba(124,58,237,.22)" filter="url(#g3)"/>
+        <rect x="174" y="316" width="58" height="52" rx="11" fill="#080516" stroke="rgba(240,171,252,0.12)" stroke-width=".7"/>
+        <rect x="179" y="322" width="48" height="3" rx="1.5" fill="#f0abfc" opacity=".3"><animate attributeName="opacity" values=".3;.8;.3" dur="1.5s" repeatCount="indefinite" begin="0s"/></rect>
+        <rect x="179" y="329" width="48" height="3" rx="1.5" fill="#f0abfc" opacity=".3"><animate attributeName="opacity" values=".3;.8;.3" dur="1.5s" repeatCount="indefinite" begin=".3s"/></rect>
+        <rect x="179" y="336" width="48" height="3" rx="1.5" fill="#c4b5fd" opacity=".25"><animate attributeName="opacity" values=".25;.7;.25" dur="1.5s" repeatCount="indefinite" begin=".6s"/></rect>
+        <rect x="179" y="343" width="48" height="3" rx="1.5" fill="#f0abfc" opacity=".25"><animate attributeName="opacity" values=".25;.7;.25" dur="1.5s" repeatCount="indefinite" begin=".9s"/></rect>
+        <rect x="179" y="350" width="34" height="3" rx="1.5" fill="#67e8f9" opacity=".2"><animate attributeName="opacity" values=".2;.65;.2" dur="1.3s" repeatCount="indefinite"/></rect>
+        <rect x="179" y="357" width="48" height="3" rx="1.5" fill="#f0abfc" opacity=".18"><animate attributeName="opacity" values=".18;.55;.18" dur="1.5s" repeatCount="indefinite" begin="1.2s"/></rect>
 
-        <!-- Body energy curves -->
-        <path d="M56 242 Q33 276 56 310" stroke="#06b6d4" stroke-width="1.3" fill="none" stroke-linecap="round" opacity=".3">
-          <animate attributeName="opacity" values=".3;.85;.3" dur="2.6s" repeatCount="indefinite"/>
+        <!-- Shoulder joints -->
+        <circle cx="48" cy="220" r="17" fill="#080516" stroke="rgba(196,181,253,0.25)" stroke-width="1.5"/>
+        <circle cx="48" cy="220" r="9" fill="url(#eyeG)" opacity=".45" filter="url(#glow3)">
+          <animate attributeName="opacity" values=".45;.9;.45" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="48" cy="220" r="4" fill="#c4b5fd"/>
+
+        <circle cx="252" cy="220" r="17" fill="#080516" stroke="rgba(240,171,252,0.25)" stroke-width="1.5"/>
+        <circle cx="252" cy="220" r="9" fill="url(#vpG)" opacity=".45" filter="url(#glow3)">
+          <animate attributeName="opacity" values=".45;.9;.45" dur="2.5s" begin=".9s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="252" cy="220" r="4" fill="#f0abfc"/>
+
+        <!-- ── ARMS ── -->
+        <!-- Left arm -->
+        <rect x="14" y="210" width="36" height="130" rx="16" fill="url(#bdG)" stroke="rgba(196,181,253,0.2)" stroke-width="1.2"/>
+        <rect x="19" y="224" width="26" height="4" rx="2" fill="#c4b5fd" opacity=".25"/>
+        <rect x="19" y="232" width="26" height="3" rx="1.5" fill="#c4b5fd" opacity=".12"/>
+        <rect x="14" y="292" width="36" height="11" rx="5.5" fill="#060316" stroke="rgba(196,181,253,0.15)" stroke-width=".8"/>
+
+        <!-- Left hand -->
+        <rect x="10" y="336" width="44" height="40" rx="13" fill="url(#bdG)" stroke="rgba(196,181,253,0.2)" stroke-width="1.2"/>
+        <rect x="12" y="342" width="40" height="5" rx="2.5" fill="url(#cvG)" opacity=".15"/>
+        <rect x="12" y="372" width="9" height="21" rx="4.5" fill="url(#bdG)" stroke="rgba(196,181,253,0.2)" stroke-width=".9"/>
+        <rect x="23" y="372" width="9" height="23" rx="4.5" fill="url(#bdG)" stroke="rgba(196,181,253,0.2)" stroke-width=".9"/>
+        <rect x="34" y="372" width="9" height="23" rx="4.5" fill="url(#bdG)" stroke="rgba(196,181,253,0.2)" stroke-width=".9"/>
+        <rect x="45" y="372" width="9" height="19" rx="4.5" fill="url(#bdG)" stroke="rgba(196,181,253,0.2)" stroke-width=".9"/>
+        <rect x="4" y="346" width="8" height="19" rx="4" fill="url(#bdG)" stroke="rgba(196,181,253,0.2)" stroke-width=".8" transform="rotate(-15 8 355)"/>
+
+        <!-- Right arm -->
+        <rect x="250" y="210" width="36" height="130" rx="16" fill="url(#bdG)" stroke="rgba(240,171,252,0.2)" stroke-width="1.2"/>
+        <rect x="255" y="224" width="26" height="4" rx="2" fill="#f0abfc" opacity=".25"/>
+        <rect x="255" y="232" width="26" height="3" rx="1.5" fill="#f0abfc" opacity=".12"/>
+        <rect x="250" y="292" width="36" height="11" rx="5.5" fill="#060316" stroke="rgba(240,171,252,0.15)" stroke-width=".8"/>
+
+        <!-- Right hand -->
+        <rect x="246" y="336" width="44" height="40" rx="13" fill="url(#bdG)" stroke="rgba(240,171,252,0.2)" stroke-width="1.2"/>
+        <rect x="248" y="342" width="40" height="5" rx="2.5" fill="url(#vpG)" opacity=".15"/>
+        <rect x="246" y="372" width="9" height="21" rx="4.5" fill="url(#bdG)" stroke="rgba(240,171,252,0.2)" stroke-width=".9"/>
+        <rect x="257" y="372" width="9" height="23" rx="4.5" fill="url(#bdG)" stroke="rgba(240,171,252,0.2)" stroke-width=".9"/>
+        <rect x="268" y="372" width="9" height="23" rx="4.5" fill="url(#bdG)" stroke="rgba(240,171,252,0.2)" stroke-width=".9"/>
+        <rect x="279" y="372" width="9" height="19" rx="4.5" fill="url(#bdG)" stroke="rgba(240,171,252,0.2)" stroke-width=".9"/>
+        <rect x="288" y="346" width="8" height="19" rx="4" fill="url(#bdG)" stroke="rgba(240,171,252,0.2)" stroke-width=".8" transform="rotate(15 292 355)"/>
+
+        <!-- Waist -->
+        <rect x="70" y="364" width="160" height="25" rx="12" fill="#060316" stroke="rgba(196,181,253,0.2)" stroke-width="1.2"/>
+        <rect x="78" y="369" width="144" height="5" rx="2.5" fill="url(#cvG)" opacity=".35"/>
+        <rect x="136" y="362" width="28" height="29" rx="7" fill="#080516" stroke="rgba(196,181,253,0.2)" stroke-width=".9"/>
+        <circle cx="150" cy="376" r="6" fill="url(#eyeG)" opacity=".8" filter="url(#glow3)">
+          <animate attributeName="opacity" values=".8;.25;.8" dur="2s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- ── LEGS ── -->
+        <!-- Left -->
+        <rect x="76" y="386" width="60" height="115" rx="20" fill="url(#bdG)" stroke="rgba(196,181,253,0.18)" stroke-width="1.2"/>
+        <rect x="81" y="397" width="50" height="4" rx="2" fill="#c4b5fd" opacity=".2"/>
+        <rect x="76" y="452" width="60" height="15" rx="7" fill="#060316" stroke="rgba(196,181,253,0.15)" stroke-width=".8"/>
+        <!-- Left foot -->
+        <rect x="66" y="496" width="80" height="24" rx="10" fill="url(#bdG)" stroke="rgba(196,181,253,0.2)" stroke-width="1.2"/>
+        <rect x="56" y="497" width="16" height="20" rx="8" fill="url(#bdG)" stroke="rgba(196,181,253,0.15)" stroke-width="1" transform="rotate(-6 64 507)"/>
+        <ellipse cx="106" cy="519" rx="38" ry="5" fill="rgba(196,181,253,0.18)" filter="url(#glow3)"/>
+
+        <!-- Right -->
+        <rect x="164" y="386" width="60" height="115" rx="20" fill="url(#bdG)" stroke="rgba(240,171,252,0.18)" stroke-width="1.2"/>
+        <rect x="169" y="397" width="50" height="4" rx="2" fill="#f0abfc" opacity=".2"/>
+        <rect x="164" y="452" width="60" height="15" rx="7" fill="#060316" stroke="rgba(240,171,252,0.15)" stroke-width=".8"/>
+        <!-- Right foot -->
+        <rect x="154" y="496" width="80" height="24" rx="10" fill="url(#bdG)" stroke="rgba(240,171,252,0.2)" stroke-width="1.2"/>
+        <rect x="228" y="497" width="16" height="20" rx="8" fill="url(#bdG)" stroke="rgba(240,171,252,0.15)" stroke-width="1" transform="rotate(6 236 507)"/>
+        <ellipse cx="194" cy="519" rx="38" ry="5" fill="rgba(240,171,252,0.18)" filter="url(#glow3)"/>
+
+        <!-- Energy lines on torso sides -->
+        <path d="M55 244 Q32 278 55 312" stroke="#c4b5fd" stroke-width="1.2" fill="none" stroke-linecap="round" opacity=".25">
+          <animate attributeName="opacity" values=".25;.8;.25" dur="2.8s" repeatCount="indefinite"/>
         </path>
-        <path d="M244 242 Q267 276 244 310" stroke="#7c3aed" stroke-width="1.3" fill="none" stroke-linecap="round" opacity=".3">
-          <animate attributeName="opacity" values=".3;.85;.3" dur="2.6s" begin=".6s" repeatCount="indefinite"/>
+        <path d="M245 244 Q268 278 245 312" stroke="#f0abfc" stroke-width="1.2" fill="none" stroke-linecap="round" opacity=".25">
+          <animate attributeName="opacity" values=".25;.8;.25" dur="2.8s" begin=".7s" repeatCount="indefinite"/>
         </path>
 
-        <!-- Screen glow on face -->
-        <ellipse cx="150" cy="68" rx="58" ry="10" fill="rgba(6,182,212,0.06)" filter="url(#g2)">
-          <animate attributeName="opacity" values=".6;1;.6" dur="3.5s" repeatCount="indefinite"/>
+        <!-- Top glow on head -->
+        <ellipse cx="150" cy="60" rx="55" ry="9" fill="rgba(196,181,253,0.07)" filter="url(#glow2)">
+          <animate attributeName="opacity" values=".6;1;.6" dur="4s" repeatCount="indefinite"/>
         </ellipse>
       </svg>
 
@@ -819,50 +877,56 @@ nav ul li a:hover::after{width:100%}
 
 </section>
 
-<!-- ═══ SCRIPTS ═══ -->
+<!-- Scroll indicator -->
+<div class="scroll-ind">
+  <div class="scroll-line"></div>
+  <span class="scroll-txt">Scroll</span>
+</div>
+
 <script>
-/* ── STAR + PARTICLE CANVAS ── */
+/* ── CUSTOM CURSOR ── */
+const cursor=document.getElementById('cursor');
+const ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cursor.style.left=mx-6+'px';cursor.style.top=my-6+'px';
+});
+function animRing(){
+  rx+=(mx-rx-20)*.12;ry+=(my-ry-20)*.12;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+}animRing();
+document.querySelectorAll('a,button,.stag,.st').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.transform='scale(2)';ring.style.width='56px';ring.style.height='56px'});
+  el.addEventListener('mouseleave',()=>{cursor.style.transform='scale(1)';ring.style.width='40px';ring.style.height='40px'});
+});
+
+/* ── STAR CANVAS ── */
 (function(){
   const cv=document.getElementById('starCanvas');
   const cx=cv.getContext('2d');
   function resize(){cv.width=innerWidth;cv.height=innerHeight}
-  resize();
-  addEventListener('resize',resize);
-
-  /* Static twinkling stars */
-  const stars=Array.from({length:200},()=>({
-    x:Math.random()*innerWidth,
-    y:Math.random()*innerHeight,
-    r:Math.random()*1.5+.2,
-    a:Math.random()*.8+.1,
-    s:Math.random()*.006+.002,
-    p:Math.random()*Math.PI*2
+  resize();addEventListener('resize',resize);
+  const stars=Array.from({length:220},()=>({
+    x:Math.random()*innerWidth,y:Math.random()*innerHeight,
+    r:Math.random()*1.6+.2,a:Math.random()*.7+.1,
+    s:Math.random()*.005+.002,p:Math.random()*Math.PI*2
   }));
-
-  /* Moving particles */
-  const pts=Array.from({length:60},()=>({
-    x:Math.random()*innerWidth,
-    y:Math.random()*innerHeight,
-    vx:(Math.random()-.5)*.3,
-    vy:(Math.random()-.5)*.3,
-    r:Math.random()*1.6+.4,
-    a:Math.random()*.35+.08,
-    c:Math.random()>.5?'6,182,212':'124,58,237'
+  const pts=Array.from({length:55},()=>({
+    x:Math.random()*innerWidth,y:Math.random()*innerHeight,
+    vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,
+    r:Math.random()*1.5+.4,a:Math.random()*.3+.06,
+    c:Math.random()>.5?'196,181,253':'240,171,252'
   }));
-
   let t=0;
   function draw(){
-    cx.clearRect(0,0,cv.width,cv.height);
-    t+=.012;
-
-    /* Stars */
+    cx.clearRect(0,0,cv.width,cv.height);t+=.01;
     stars.forEach(s=>{
-      const a=s.a*(.45+.55*Math.sin(t*s.s*60+s.p));
+      const a=s.a*(.4+.6*Math.sin(t*s.s*60+s.p));
       cx.beginPath();cx.arc(s.x,s.y,s.r,0,Math.PI*2);
       cx.fillStyle=`rgba(255,255,255,${a.toFixed(3)})`;cx.fill();
     });
-
-    /* Particles */
     pts.forEach(p=>{
       p.x+=p.vx;p.y+=p.vy;
       if(p.x<0)p.x=cv.width;if(p.x>cv.width)p.x=0;
@@ -870,61 +934,51 @@ nav ul li a:hover::after{width:100%}
       cx.beginPath();cx.arc(p.x,p.y,p.r,0,Math.PI*2);
       cx.fillStyle=`rgba(${p.c},${p.a})`;cx.fill();
     });
-
-    /* Connections */
     for(let i=0;i<pts.length;i++){
       for(let j=i+1;j<pts.length;j++){
         const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y;
         const d=Math.hypot(dx,dy);
-        if(d<115){
+        if(d<120){
           cx.beginPath();cx.moveTo(pts[i].x,pts[i].y);cx.lineTo(pts[j].x,pts[j].y);
-          cx.strokeStyle=`rgba(6,182,212,${(.06*(1-d/115)).toFixed(3)})`;
+          cx.strokeStyle=`rgba(167,139,250,${(.05*(1-d/120)).toFixed(3)})`;
           cx.lineWidth=.5;cx.stroke();
         }
       }
     }
-
     requestAnimationFrame(draw);
-  }
-  draw();
+  }draw();
 })();
 
 /* ── TYPEWRITER ── */
 (function(){
-  const ph=['WordPress Websites.','Landing Pages.','Telegram Bots.','Responsive Designs.','Shopify Stores.','SEO Campaigns.'];
+  const ph=['WordPress Websites.','Landing Pages.','Telegram Bots.','Shopify Stores.','SEO Campaigns.','Responsive Designs.'];
   let pi=0,ci=0,del=false;
   const el=document.getElementById('tw');
   function tick(){
     const p=ph[pi];
-    if(!del){el.textContent=p.slice(0,++ci);if(ci>=p.length){del=true;setTimeout(tick,2000);return;}}
-    else{el.textContent=p.slice(0,--ci);if(ci<=0){del=false;pi=(pi+1)%ph.length;setTimeout(tick,500);return;}}
-    setTimeout(tick,del?38:78);
+    if(!del){el.textContent=p.slice(0,++ci);if(ci>=p.length){del=true;setTimeout(tick,2200);return;}}
+    else{el.textContent=p.slice(0,--ci);if(ci<=0){del=false;pi=(pi+1)%ph.length;setTimeout(tick,550);return;}}
+    setTimeout(tick,del?36:82);
   }
-  setTimeout(tick,1300);
+  setTimeout(tick,1400);
 })();
 
 /* ── COUNTERS ── */
 setTimeout(()=>{
-  /* s1=20+, s2=15+, s3=1+ (experience) */
   [{id:'s1',n:20,sf:'+'},{id:'s2',n:15,sf:'+'},{id:'s3',n:1,sf:'+'}].forEach(({id,n,sf})=>{
     const el=document.getElementById(id);
-    let v=0;
-    const step=Math.max(.2,n/50);
-    const iv=setInterval(()=>{
-      v=Math.min(v+step,n);
-      el.textContent=Math.floor(v)+sf;
-      if(v>=n)clearInterval(iv);
-    },35);
+    let v=0;const step=Math.max(.2,n/60);
+    const iv=setInterval(()=>{v=Math.min(v+step,n);el.textContent=Math.floor(v)+sf;if(v>=n)clearInterval(iv)},30);
   });
 },1800);
 
-/* ── MOUSE PARALLAX ── */
+/* ── PARALLAX ── */
 if(innerWidth>800){
   const r=document.getElementById('heroRight');
   addEventListener('mousemove',e=>{
-    const x=(e.clientX/innerWidth-.5)*13;
-    const y=(e.clientY/innerHeight-.5)*6;
-    r.style.transform=`perspective(900px) rotateY(${x}deg) rotateX(${-y}deg)`;
+    const x=(e.clientX/innerWidth-.5)*15;
+    const y=(e.clientY/innerHeight-.5)*7;
+    r.style.transform=`perspective(1000px) rotateY(${x}deg) rotateX(${-y}deg)`;
   });
 }
 
@@ -936,7 +990,7 @@ function toggleNav(){
   const sp=b.querySelectorAll('span');
   mo=!mo;
   if(mo){
-    m.style.cssText='display:flex;flex-direction:column;gap:20px;position:absolute;top:68px;left:0;right:0;background:rgba(2,6,20,.97);padding:32px 28px;border-bottom:1px solid rgba(6,182,212,.12);backdrop-filter:blur(22px);z-index:999;';
+    m.style.cssText='display:flex;flex-direction:column;gap:22px;position:absolute;top:72px;left:0;right:0;background:rgba(5,3,20,.97);padding:36px 28px;border-bottom:1px solid rgba(167,139,250,.1);backdrop-filter:blur(30px);z-index:999;';
     sp[0].style.transform='rotate(45deg) translate(5px,5px)';
     sp[1].style.opacity='0';
     sp[2].style.transform='rotate(-45deg) translate(5px,-5px)';
