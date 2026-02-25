@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -770,24 +769,28 @@ h1{font-family:'DM Serif Display',serif;font-size:clamp(2.8rem,5vw,5.5rem);line-
 <nav id="mainNav">
   <div class="logo">Muskan.</div>
   <ul class="nav-links">
-    <li><a href="#">Home</a></li>
+    <li><a href="#home">Home</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#portfolio">Portfolio</a></li>
-    <li><a href="#">About</a></li>
-    <li><a href="#" class="nav-cta">Hire Me →</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#about" class="nav-cta">Hire Me →</a></li>
   </ul>
   <button class="hamburger" onclick="toggleMob()" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="mob-menu" id="mobMenu">
-  <a href="#">Home</a><a href="#skills">Skills</a>
-  <a href="#experience">Experience</a>
-  <a href="#portfolio">Portfolio</a><a href="#">About</a>
-  <a href="#" class="mob-cta">Hire Me →</a>
+  <a href="#home" onclick="toggleMob()">Home</a>
+  <a href="#skills" onclick="toggleMob()">Skills</a>
+  <a href="#experience" onclick="toggleMob()">Experience</a>
+  <a href="#portfolio" onclick="toggleMob()">Portfolio</a>
+  <a href="#education" onclick="toggleMob()">Education</a>
+  <a href="#about" onclick="toggleMob()">About</a>
+  <a href="#about" class="mob-cta" onclick="toggleMob()">Hire Me →</a>
 </div>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="home">
   <div class="hero-left" id="heroLeft">
     <div class="pill"><span class="pill-dot"></span>Open to Work</div>
     <h1>
@@ -1238,6 +1241,584 @@ h1{font-family:'DM Serif Display',serif;font-size:clamp(2.8rem,5vw,5.5rem);line-
   </div>
 </section>
 
+<!-- ═══════════════════════════════════════
+     EDUCATION SECTION
+═══════════════════════════════════════ -->
+<section class="edu-section" id="education">
+  <div class="edu-bg-grid"></div>
+  <div class="edu-orb edu-orb1"></div>
+  <div class="edu-orb edu-orb2"></div>
+  <div class="edu-scanline"></div>
+
+  <div class="section-header" style="position:relative;z-index:2;">
+    <div class="sec-pill" id="eduPill">🎓 Academic Journey</div>
+    <h2 class="sec-title"><span class="sec-title-inner" id="eduTitle">Education &amp; <span>Qualifications</span></span></h2>
+    <p class="sec-sub" id="eduSub">Built on a strong academic foundation — from school excellence to university distinction.</p>
+  </div>
+
+  <div class="edu-timeline" id="eduTimeline">
+
+    <!-- 10th -->
+    <div class="edu-item" id="eduItem0">
+      <div class="edu-card edu-card-emerald">
+        <div class="edu-card-glow"></div>
+        <div class="edu-badge">10th</div>
+        <div class="edu-card-header">
+          <div class="edu-icon-wrap edu-em">🏫</div>
+          <div>
+            <div class="edu-degree">Secondary Education (10th)</div>
+            <div class="edu-inst edu-em-color">St. Francis Sr. Sec. School</div>
+            <div class="edu-board">CBSE Board</div>
+          </div>
+        </div>
+        <div class="edu-divider" style="background:linear-gradient(90deg,rgba(0,200,150,.25),transparent);"></div>
+        <div class="edu-score-row">
+          <div class="edu-score-block">
+            <div class="edu-score-label">Percentage</div>
+            <div class="edu-score-val edu-em-color" id="edu10pct">0%</div>
+          </div>
+          <div class="edu-prog-wrap">
+            <div class="edu-prog-track">
+              <div class="edu-prog-fill edu-fill-em" data-w="67" id="eduFill0"></div>
+            </div>
+            <div class="edu-prog-markers">
+              <span>0%</span><span>50%</span><span>100%</span>
+            </div>
+          </div>
+        </div>
+        <div class="edu-tags">
+          <span class="edu-tag edu-tag-em">CBSE</span>
+          <span class="edu-tag edu-tag-em">Science Stream</span>
+          <span class="edu-tag edu-tag-em">2018–19</span>
+        </div>
+      </div>
+      <div class="edu-dot-col">
+        <div class="edu-dot edu-dot-em">🎓</div>
+        <div class="edu-year-badge">2019</div>
+      </div>
+      <div class="edu-spacer"></div>
+    </div>
+
+    <!-- 12th -->
+    <div class="edu-item edu-item-right" id="eduItem1">
+      <div class="edu-spacer"></div>
+      <div class="edu-dot-col">
+        <div class="edu-dot edu-dot-sp">📚</div>
+        <div class="edu-year-badge">2021</div>
+      </div>
+      <div class="edu-card edu-card-sapphire">
+        <div class="edu-card-glow" style="background:radial-gradient(circle at 0% 0%,rgba(45,110,247,.18),transparent 65%);"></div>
+        <div class="edu-badge" style="background:rgba(45,110,247,.12);border-color:rgba(45,110,247,.25);color:var(--sapphire2);">12th</div>
+        <div class="edu-card-header">
+          <div class="edu-icon-wrap edu-sp">📖</div>
+          <div>
+            <div class="edu-degree">Senior Secondary (12th)</div>
+            <div class="edu-inst edu-sp-color">St. Francis Sr. Sec. School</div>
+            <div class="edu-board">CBSE Board · Commerce Stream</div>
+          </div>
+        </div>
+        <div class="edu-divider" style="background:linear-gradient(90deg,rgba(45,110,247,.25),transparent);"></div>
+        <div class="edu-score-row">
+          <div class="edu-score-block">
+            <div class="edu-score-label">Percentage</div>
+            <div class="edu-score-val edu-sp-color" id="edu12pct">0%</div>
+          </div>
+          <div class="edu-prog-wrap">
+            <div class="edu-prog-track">
+              <div class="edu-prog-fill edu-fill-sp" data-w="80" id="eduFill1"></div>
+            </div>
+            <div class="edu-prog-markers">
+              <span>0%</span><span>50%</span><span>100%</span>
+            </div>
+          </div>
+        </div>
+        <div class="edu-tags">
+          <span class="edu-tag edu-tag-sp">CBSE</span>
+          <span class="edu-tag edu-tag-sp">Commerce</span>
+          <span class="edu-tag edu-tag-sp">2020–21</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- BCA -->
+    <div class="edu-item" id="eduItem2">
+      <div class="edu-card edu-card-teal">
+        <div class="edu-card-glow" style="background:radial-gradient(circle at 100% 0%,rgba(0,188,212,.18),transparent 65%);"></div>
+        <div class="edu-badge" style="background:rgba(0,188,212,.1);border-color:rgba(0,188,212,.25);color:var(--teal);">BCA</div>
+        <div class="edu-card-header">
+          <div class="edu-icon-wrap edu-tl">🎓</div>
+          <div>
+            <div class="edu-degree">Bachelor of Computer Applications</div>
+            <div class="edu-inst edu-tl-color">Aryan International College</div>
+            <div class="edu-board">MDSU University · 2021–2024</div>
+          </div>
+        </div>
+        <div class="edu-divider" style="background:linear-gradient(90deg,rgba(0,188,212,.25),transparent);"></div>
+        <div class="edu-score-row">
+          <div class="edu-score-block">
+            <div class="edu-score-label">Percentage</div>
+            <div class="edu-score-val edu-tl-color" id="edubcapct">0%</div>
+          </div>
+          <div class="edu-prog-wrap">
+            <div class="edu-prog-track">
+              <div class="edu-prog-fill edu-fill-tl" data-w="79" id="eduFill2"></div>
+            </div>
+            <div class="edu-prog-markers">
+              <span>0%</span><span>50%</span><span>100%</span>
+            </div>
+          </div>
+        </div>
+        <div class="edu-tags">
+          <span class="edu-tag edu-tag-tl">MDSU</span>
+          <span class="edu-tag edu-tag-tl">Computer Applications</span>
+          <span class="edu-tag edu-tag-tl">2021–2024</span>
+        </div>
+        <!-- BCA Grade Bar Chart -->
+        <div class="edu-bca-chart">
+          <div class="edu-chart-label">Academic Performance</div>
+          <div class="edu-chart-bars">
+            <div class="edu-bar-grp"><div class="edu-bar" style="height:65%;" data-clr="teal" id="bcaB0"></div><span class="edu-bar-lbl">1st Yr</span></div>
+            <div class="edu-bar-grp"><div class="edu-bar" style="height:74%;" data-clr="teal" id="bcaB1"></div><span class="edu-bar-lbl">2nd Yr</span></div>
+            <div class="edu-bar-grp"><div class="edu-bar" style="height:79%;" data-clr="teal" id="bcaB2"></div><span class="edu-bar-lbl">3rd Yr</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="edu-dot-col">
+        <div class="edu-dot edu-dot-tl">💻</div>
+        <div class="edu-year-badge">2024</div>
+      </div>
+      <div class="edu-spacer"></div>
+    </div>
+
+  </div><!-- /edu-timeline -->
+</section>
+
+<!-- ═══════════════════════════════════════
+     SKILLS GRAPH SECTION (after portfolio)
+═══════════════════════════════════════ -->
+<section class="sgraph-section" id="skillsgraph">
+  <div class="edu-bg-grid" style="background-image:linear-gradient(rgba(45,110,247,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(45,110,247,.018) 1px,transparent 1px);"></div>
+  <div class="edu-orb edu-orb2" style="top:-80px;right:0;left:auto;"></div>
+
+  <div class="section-header" style="position:relative;z-index:2;">
+    <div class="sec-pill" id="sgPill">📊 Skill Analytics</div>
+    <h2 class="sec-title"><span class="sec-title-inner" id="sgTitle">Skills at a <span>Glance</span></span></h2>
+    <p class="sec-sub" id="sgSub">A visual breakdown of technical proficiency across all core disciplines.</p>
+  </div>
+
+  <div class="sg-grid" id="sgGrid">
+    <!-- Animated Circular Skills -->
+    <div class="sg-circles-card">
+      <div class="sg-card-label">Core Tech Skills</div>
+      <div class="sg-circles-row">
+        <div class="sg-circle-item">
+          <svg viewBox="0 0 90 90" class="sg-circle-svg">
+            <circle cx="45" cy="45" r="36" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="7"/>
+            <circle cx="45" cy="45" r="36" fill="none" stroke="url(#cg1)" stroke-width="7" stroke-linecap="round" stroke-dasharray="226 226" stroke-dashoffset="226" class="sg-arc" data-val="207" transform="rotate(-90 45 45)"/>
+            <defs><linearGradient id="cg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00c896"/><stop offset="100%" stop-color="#00e8ad"/></linearGradient></defs>
+            <text x="45" y="48" text-anchor="middle" fill="#fff" font-size="13" font-family="DM Serif Display" class="sg-circ-pct" data-val="92">0</text>
+            <text x="45" y="59" text-anchor="middle" fill="rgba(255,255,255,.3)" font-size="6" font-family="DM Sans">%</text>
+          </svg>
+          <div class="sg-circ-label" style="color:var(--emerald2);">WordPress</div>
+        </div>
+        <div class="sg-circle-item">
+          <svg viewBox="0 0 90 90" class="sg-circle-svg">
+            <circle cx="45" cy="45" r="36" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="7"/>
+            <circle cx="45" cy="45" r="36" fill="none" stroke="url(#cg2)" stroke-width="7" stroke-linecap="round" stroke-dasharray="226 226" stroke-dashoffset="226" class="sg-arc" data-val="199" transform="rotate(-90 45 45)"/>
+            <defs><linearGradient id="cg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2d6ef7"/><stop offset="100%" stop-color="#5e91ff"/></linearGradient></defs>
+            <text x="45" y="48" text-anchor="middle" fill="#fff" font-size="13" font-family="DM Serif Display" class="sg-circ-pct" data-val="88">0</text>
+            <text x="45" y="59" text-anchor="middle" fill="rgba(255,255,255,.3)" font-size="6" font-family="DM Sans">%</text>
+          </svg>
+          <div class="sg-circ-label" style="color:var(--sapphire2);">Elementor</div>
+        </div>
+        <div class="sg-circle-item">
+          <svg viewBox="0 0 90 90" class="sg-circle-svg">
+            <circle cx="45" cy="45" r="36" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="7"/>
+            <circle cx="45" cy="45" r="36" fill="none" stroke="url(#cg3)" stroke-width="7" stroke-linecap="round" stroke-dasharray="226 226" stroke-dashoffset="226" class="sg-arc" data-val="192" transform="rotate(-90 45 45)"/>
+            <defs><linearGradient id="cg3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00bcd4"/><stop offset="100%" stop-color="#00f5c4"/></linearGradient></defs>
+            <text x="45" y="48" text-anchor="middle" fill="#fff" font-size="13" font-family="DM Serif Display" class="sg-circ-pct" data-val="85">0</text>
+            <text x="45" y="59" text-anchor="middle" fill="rgba(255,255,255,.3)" font-size="6" font-family="DM Sans">%</text>
+          </svg>
+          <div class="sg-circ-label" style="color:var(--teal);">WooCommerce</div>
+        </div>
+        <div class="sg-circle-item">
+          <svg viewBox="0 0 90 90" class="sg-circle-svg">
+            <circle cx="45" cy="45" r="36" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="7"/>
+            <circle cx="45" cy="45" r="36" fill="none" stroke="url(#cg4)" stroke-width="7" stroke-linecap="round" stroke-dasharray="226 226" stroke-dashoffset="226" class="sg-arc" data-val="199" transform="rotate(-90 45 45)"/>
+            <defs><linearGradient id="cg4" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00c896"/><stop offset="100%" stop-color="#2d6ef7"/></linearGradient></defs>
+            <text x="45" y="48" text-anchor="middle" fill="#fff" font-size="13" font-family="DM Serif Display" class="sg-circ-pct" data-val="88">0</text>
+            <text x="45" y="59" text-anchor="middle" fill="rgba(255,255,255,.3)" font-size="6" font-family="DM Sans">%</text>
+          </svg>
+          <div class="sg-circ-label" style="color:var(--mint);">Custom CSS</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Animated Horizontal Bar Chart -->
+    <div class="sg-bars-card">
+      <div class="sg-card-label">Proficiency Levels</div>
+      <div class="sg-hbars">
+        <div class="sg-hbar-item">
+          <div class="sg-hbar-info"><span>WordPress</span><span style="color:var(--emerald2);">92%</span></div>
+          <div class="sg-hbar-track"><div class="sg-hbar-fill" style="background:linear-gradient(90deg,#00c896,#00e8ad);" data-w="92"></div></div>
+        </div>
+        <div class="sg-hbar-item">
+          <div class="sg-hbar-info"><span>Elementor Pro</span><span style="color:var(--sapphire2);">88%</span></div>
+          <div class="sg-hbar-track"><div class="sg-hbar-fill" style="background:linear-gradient(90deg,#2d6ef7,#5e91ff);" data-w="88"></div></div>
+        </div>
+        <div class="sg-hbar-item">
+          <div class="sg-hbar-info"><span>WooCommerce</span><span style="color:var(--teal);">85%</span></div>
+          <div class="sg-hbar-track"><div class="sg-hbar-fill" style="background:linear-gradient(90deg,#00bcd4,#00f5c4);" data-w="85"></div></div>
+        </div>
+        <div class="sg-hbar-item">
+          <div class="sg-hbar-info"><span>Custom CSS / HTML</span><span style="color:var(--mint);">88%</span></div>
+          <div class="sg-hbar-track"><div class="sg-hbar-fill" style="background:linear-gradient(90deg,#00c896,#2d6ef7);" data-w="88"></div></div>
+        </div>
+        <div class="sg-hbar-item">
+          <div class="sg-hbar-info"><span>PHP (Basic)</span><span style="color:rgba(255,255,255,.6);">70%</span></div>
+          <div class="sg-hbar-track"><div class="sg-hbar-fill" style="background:linear-gradient(90deg,rgba(0,200,150,.6),rgba(45,110,247,.6));" data-w="70"></div></div>
+        </div>
+        <div class="sg-hbar-item">
+          <div class="sg-hbar-info"><span>SEO Optimization</span><span style="color:var(--sapphire2);">82%</span></div>
+          <div class="sg-hbar-track"><div class="sg-hbar-fill" style="background:linear-gradient(90deg,#2d6ef7,#00bcd4);" data-w="82"></div></div>
+        </div>
+        <div class="sg-hbar-item">
+          <div class="sg-hbar-info"><span>Speed Optimization</span><span style="color:var(--emerald2);">87%</span></div>
+          <div class="sg-hbar-track"><div class="sg-hbar-fill" style="background:linear-gradient(90deg,#00c896,#00f5c4);" data-w="87"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Growth Chart Canvas -->
+    <div class="sg-growth-card">
+      <div class="sg-card-label">Project Growth Over Time</div>
+      <canvas id="sgGrowthCanvas" class="sg-canvas"></canvas>
+      <div class="sg-growth-legend">
+        <span><i style="background:#00c896;"></i>Projects</span>
+        <span><i style="background:#2d6ef7;"></i>Clients</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ABOUT SECTION
+═══════════════════════════════════════ -->
+<section class="about-section" id="about">
+  <div class="about-orb about-orb1"></div>
+  <div class="about-orb about-orb2"></div>
+  <div class="edu-scanline" style="animation-duration:9s;"></div>
+
+  <div class="section-header" style="position:relative;z-index:2;">
+    <div class="sec-pill" id="aboutPill">✦ The Person Behind the Code</div>
+    <h2 class="sec-title"><span class="sec-title-inner" id="aboutTitle">About <span>Muskan</span></span></h2>
+    <p class="sec-sub" id="aboutSub">Developer. Creator. Dreamer. Here's the story.</p>
+  </div>
+
+  <div class="about-grid" id="aboutGrid">
+    <!-- Left: About Card -->
+    <div class="about-card" id="aboutCard">
+      <div class="about-card-glow"></div>
+      <div class="about-avatar-wrap">
+        <div class="about-avatar">
+          <span>MM</span>
+          <div class="about-avatar-ring"></div>
+          <div class="about-avatar-ring2"></div>
+        </div>
+        <div class="about-status"><span class="avail-dot"></span>Available for Work</div>
+      </div>
+      <h3 class="about-name">Muskan Motwani</h3>
+      <div class="about-role-tag">WordPress Developer</div>
+      <p class="about-bio">
+        I'm a passionate WordPress developer based in <strong>Adarsh Nagar</strong>, crafting digital experiences that blend creativity with functionality. With a BCA degree and hands-on experience building 20+ real-world websites, I bring ideas to life through code.
+      </p>
+      <p class="about-bio" style="margin-top:.9rem;">
+        From pixel-perfect themes to fully functional e-commerce stores, I love every stage of the web development journey — design, development, optimization, and launch.
+      </p>
+
+      <!-- Contact Details -->
+      <div class="about-contact-grid">
+        <a class="about-contact-pill about-cp-em" href="mailto:muskan@gmail.com">
+          <span class="about-cp-ic">📧</span>
+          <div>
+            <div class="about-cp-label">Email</div>
+            <div class="about-cp-val">muskan@gmail.com</div>
+          </div>
+        </a>
+        <a class="about-contact-pill about-cp-sp" href="https://wa.me/917726064524" target="_blank">
+          <span class="about-cp-ic">💬</span>
+          <div>
+            <div class="about-cp-label">WhatsApp</div>
+            <div class="about-cp-val">+91 77260 64524</div>
+          </div>
+        </a>
+        <div class="about-contact-pill about-cp-tl">
+          <span class="about-cp-ic">📍</span>
+          <div>
+            <div class="about-cp-label">Location</div>
+            <div class="about-cp-val">Adarsh Nagar, India</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Info Cards -->
+    <div class="about-info-col">
+      <!-- Quick Facts -->
+      <div class="about-info-card about-ic-em">
+        <div class="about-ic-glow"></div>
+        <div class="about-ic-header">
+          <span class="about-ic-icon">⚡</span>
+          <span class="about-ic-title">Quick Facts</span>
+        </div>
+        <div class="about-facts-grid">
+          <div class="about-fact"><div class="about-fact-n" style="color:var(--emerald2);">20+</div><div class="about-fact-l">Projects Done</div></div>
+          <div class="about-fact"><div class="about-fact-n" style="color:var(--sapphire2);">15+</div><div class="about-fact-l">Happy Clients</div></div>
+          <div class="about-fact"><div class="about-fact-n" style="color:var(--teal);">1+</div><div class="about-fact-l">Years Exp.</div></div>
+          <div class="about-fact"><div class="about-fact-n" style="color:var(--mint);">98%</div><div class="about-fact-l">Satisfaction</div></div>
+        </div>
+      </div>
+
+      <!-- What I Do -->
+      <div class="about-info-card about-ic-sp">
+        <div class="about-ic-glow" style="background:radial-gradient(circle at 0% 0%,rgba(45,110,247,.18),transparent 65%);"></div>
+        <div class="about-ic-header">
+          <span class="about-ic-icon">🛠</span>
+          <span class="about-ic-title" style="color:var(--sapphire2);">What I Do</span>
+        </div>
+        <ul class="about-do-list">
+          <li><span class="about-do-dot" style="background:var(--emerald);"></span>Custom WordPress Websites from scratch</li>
+          <li><span class="about-do-dot" style="background:var(--sapphire2);"></span>WooCommerce & E-Commerce stores</li>
+          <li><span class="about-do-dot" style="background:var(--teal);"></span>Elementor Pro page design &amp; layouts</li>
+          <li><span class="about-do-dot" style="background:var(--mint);"></span>Speed &amp; SEO optimization</li>
+          <li><span class="about-do-dot" style="background:var(--emerald2);"></span>Plugin customization &amp; theme tweaks</li>
+          <li><span class="about-do-dot" style="background:var(--sapphire);"></span>Responsive, mobile-first designs</li>
+        </ul>
+      </div>
+
+      <!-- Education Summary -->
+      <div class="about-info-card about-ic-tl">
+        <div class="about-ic-glow" style="background:radial-gradient(circle at 100% 0%,rgba(0,188,212,.18),transparent 65%);"></div>
+        <div class="about-ic-header">
+          <span class="about-ic-icon">🎓</span>
+          <span class="about-ic-title" style="color:var(--teal);">Education Summary</span>
+        </div>
+        <div class="about-edu-pills">
+          <div class="about-edu-pill"><span>10th — 67% · CBSE</span><span class="about-edu-school">St. Francis School</span></div>
+          <div class="about-edu-pill"><span>12th — 80% · CBSE · Commerce</span><span class="about-edu-school">St. Francis School</span></div>
+          <div class="about-edu-pill"><span>BCA — 79% · MDSU</span><span class="about-edu-school">Aryan International College</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     CLOSING QUOTE
+═══════════════════════════════════════ -->
+<section class="quote-section" id="quote">
+  <div class="quote-orb1"></div>
+  <div class="quote-orb2"></div>
+  <div class="quote-content" id="quoteContent">
+    <div class="quote-icon">✦</div>
+    <blockquote class="quote-text" id="quoteText">
+      "Great websites aren't built by tools — <em>they're built by people who care.</em> Every pixel I place is a promise to the client, every line of code a commitment to excellence."
+    </blockquote>
+    <div class="quote-author">
+      <div class="quote-author-line"></div>
+      <span>Muskan Motwani</span>
+      <div class="quote-author-line"></div>
+    </div>
+    <div class="quote-footer-tags">
+      <span class="quote-ftag">WordPress Developer</span>
+      <span class="quote-fsep">·</span>
+      <span class="quote-ftag">BCA Graduate</span>
+      <span class="quote-fsep">·</span>
+      <span class="quote-ftag">Adarsh Nagar</span>
+    </div>
+    <div class="quote-cta-row">
+      <a href="mailto:muskan@gmail.com" class="btn-main">Let's Work Together ✦</a>
+      <a href="https://wa.me/917726064524" class="btn-ghost" target="_blank">💬 WhatsApp Me</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     STYLES FOR NEW SECTIONS
+═══════════════════════════════════════ -->
+<style>
+/* ── SHARED ── */
+.edu-section,.sgraph-section,.about-section{position:relative;z-index:1;padding:7rem 6% 4rem;overflow:hidden;}
+.edu-bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,200,150,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,150,.018) 1px,transparent 1px);background-size:50px 50px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 75%);pointer-events:none;animation:gridPulse 8s ease-in-out infinite;}
+.edu-orb{position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none;}
+.edu-orb1{width:500px;height:400px;top:-80px;left:-100px;background:radial-gradient(ellipse,rgba(0,200,150,.07),transparent 65%);animation:orbPulse 20s ease-in-out infinite;}
+.edu-orb2{width:400px;height:350px;bottom:-60px;right:-80px;background:radial-gradient(ellipse,rgba(45,110,247,.06),transparent 65%);animation:orbPulse 25s 5s ease-in-out infinite;}
+.edu-scanline{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,200,150,.2) 40%,rgba(45,110,247,.2) 60%,transparent);pointer-events:none;animation:scanSweep 7s linear infinite;z-index:1;}
+
+/* ── EDUCATION TIMELINE ── */
+.edu-timeline{max-width:1000px;margin:0 auto;position:relative;z-index:2;padding-bottom:2rem;}
+.edu-timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(180deg,transparent,rgba(0,200,150,.5) 15%,rgba(0,200,150,.6) 45%,rgba(45,110,247,.5) 75%,transparent);transform:translateX(-50%);border-radius:2px;}
+.edu-item{display:grid;grid-template-columns:1fr 70px 1fr;align-items:start;margin-bottom:3.5rem;opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1);}
+.edu-item.edu-visible{opacity:1;transform:translateY(0);}
+.edu-item:last-child{margin-bottom:0;}
+.edu-item .edu-card{grid-column:1;grid-row:1;padding-right:2.5rem;}
+.edu-item .edu-dot-col{grid-column:2;grid-row:1;}
+.edu-item .edu-spacer{grid-column:3;grid-row:1;}
+.edu-item-right .edu-spacer{grid-column:1;grid-row:1;}
+.edu-item-right .edu-dot-col{grid-column:2;grid-row:1;}
+.edu-item-right .edu-card{grid-column:3;grid-row:1;padding-right:0;padding-left:2.5rem;}
+.edu-dot-col{display:flex;flex-direction:column;align-items:center;padding-top:1.4rem;z-index:5;}
+.edu-dot{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;position:relative;z-index:3;flex-shrink:0;}
+.edu-dot-em{background:linear-gradient(135deg,rgba(0,200,150,.18),rgba(0,200,150,.06));border:1.5px solid rgba(0,200,150,.45);box-shadow:0 0 20px rgba(0,200,150,.3),0 0 40px rgba(0,200,150,.12);}
+.edu-dot-sp{background:linear-gradient(135deg,rgba(45,110,247,.18),rgba(45,110,247,.06));border:1.5px solid rgba(45,110,247,.45);box-shadow:0 0 20px rgba(45,110,247,.3),0 0 40px rgba(45,110,247,.12);}
+.edu-dot-tl{background:linear-gradient(135deg,rgba(0,188,212,.18),rgba(0,188,212,.06));border:1.5px solid rgba(0,188,212,.45);box-shadow:0 0 20px rgba(0,188,212,.3),0 0 40px rgba(0,188,212,.12);}
+.edu-year-badge{font-size:.65rem;font-weight:700;color:var(--emerald2);background:rgba(0,200,150,.06);border:1px solid rgba(0,200,150,.2);border-radius:100px;padding:3px 10px;margin-top:8px;white-space:nowrap;}
+
+.edu-card{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:20px;padding:1.8rem;position:relative;overflow:hidden;backdrop-filter:blur(8px);}
+.edu-card-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 100% 0%,rgba(0,200,150,.15),transparent 60%);border-radius:20px;}
+.edu-badge{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:1.5px;background:rgba(0,200,150,.1);border:1px solid rgba(0,200,150,.25);color:var(--emerald2);border-radius:6px;padding:3px 10px;margin-bottom:1rem;}
+.edu-card-header{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;}
+.edu-icon-wrap{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.35rem;flex-shrink:0;}
+.edu-icon-wrap.edu-em{background:rgba(0,200,150,.1);border:1px solid rgba(0,200,150,.2);}
+.edu-icon-wrap.edu-sp{background:rgba(45,110,247,.1);border:1px solid rgba(45,110,247,.2);}
+.edu-icon-wrap.edu-tl{background:rgba(0,188,212,.1);border:1px solid rgba(0,188,212,.2);}
+.edu-degree{font-family:'DM Serif Display',serif;font-size:1.05rem;color:#fff;margin-bottom:3px;}
+.edu-inst{font-size:.82rem;font-weight:600;margin-bottom:2px;}
+.edu-board{font-size:.73rem;color:var(--muted);}
+.edu-em-color{color:var(--emerald2);}
+.edu-sp-color{color:var(--sapphire2);}
+.edu-tl-color{color:var(--teal);}
+.edu-divider{height:1px;margin:1rem 0;}
+.edu-score-row{display:flex;align-items:center;gap:1.2rem;margin-bottom:1rem;}
+.edu-score-block{flex-shrink:0;}
+.edu-score-label{font-size:.62rem;color:var(--muted);margin-bottom:3px;}
+.edu-score-val{font-family:'DM Serif Display',serif;font-size:1.6rem;line-height:1;}
+.edu-prog-wrap{flex:1;}
+.edu-prog-track{height:6px;background:rgba(255,255,255,.06);border-radius:100px;overflow:hidden;margin-bottom:4px;}
+.edu-prog-fill{height:100%;width:0;border-radius:100px;transition:width 2s cubic-bezier(.22,1,.36,1);}
+.edu-fill-em{background:linear-gradient(90deg,#00c896,#00e8ad);}
+.edu-fill-sp{background:linear-gradient(90deg,#2d6ef7,#5e91ff);}
+.edu-fill-tl{background:linear-gradient(90deg,#00bcd4,#00f5c4);}
+.edu-prog-markers{display:flex;justify-content:space-between;font-size:.55rem;color:rgba(255,255,255,.2);}
+.edu-tags{display:flex;flex-wrap:wrap;gap:.5rem;}
+.edu-tag{font-size:.65rem;font-weight:600;padding:3px 10px;border-radius:100px;}
+.edu-tag-em{background:rgba(0,200,150,.08);border:1px solid rgba(0,200,150,.2);color:var(--emerald2);}
+.edu-tag-sp{background:rgba(45,110,247,.08);border:1px solid rgba(45,110,247,.2);color:var(--sapphire2);}
+.edu-tag-tl{background:rgba(0,188,212,.08);border:1px solid rgba(0,188,212,.2);color:var(--teal);}
+.edu-bca-chart{margin-top:1rem;background:rgba(0,188,212,.03);border:1px solid rgba(0,188,212,.1);border-radius:12px;padding:.8rem;}
+.edu-chart-label{font-size:.58rem;color:rgba(255,255,255,.3);letter-spacing:.7px;text-transform:uppercase;margin-bottom:.6rem;}
+.edu-chart-bars{display:flex;align-items:flex-end;gap:12px;height:50px;}
+.edu-bar-grp{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;}
+.edu-bar{width:100%;border-radius:4px 4px 0 0;transform-origin:bottom;transform:scaleY(0);transition:transform .8s cubic-bezier(.22,1,.36,1);background:linear-gradient(180deg,#00bcd4,rgba(0,188,212,.4));}
+.edu-bar.grow{transform:scaleY(1);}
+.edu-bar-lbl{font-size:.5rem;color:rgba(255,255,255,.3);}
+
+/* ── SKILLS GRAPH ── */
+.sg-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;position:relative;z-index:2;}
+.sg-circles-card,.sg-bars-card,.sg-growth-card{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:20px;padding:1.6rem;backdrop-filter:blur(8px);opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1);}
+.sg-circles-card.sg-visible,.sg-bars-card.sg-visible,.sg-growth-card.sg-visible{opacity:1;transform:translateY(0);}
+.sg-card-label{font-size:.65rem;font-weight:700;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:1.2rem;}
+.sg-circles-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+.sg-circle-item{display:flex;flex-direction:column;align-items:center;gap:.5rem;}
+.sg-circle-svg{overflow:visible;}
+.sg-arc{transition:stroke-dashoffset 2s cubic-bezier(.22,1,.36,1);}
+.sg-circ-label{font-size:.68rem;font-weight:600;text-align:center;}
+.sg-circ-pct{transition:all .1s;}
+.sg-hbars{display:flex;flex-direction:column;gap:.9rem;}
+.sg-hbar-item{}
+.sg-hbar-info{display:flex;justify-content:space-between;font-size:.72rem;margin-bottom:.35rem;color:rgba(255,255,255,.65);}
+.sg-hbar-track{height:5px;background:rgba(255,255,255,.06);border-radius:100px;overflow:hidden;}
+.sg-hbar-fill{height:100%;width:0;border-radius:100px;transition:width 1.8s cubic-bezier(.22,1,.36,1);}
+.sg-canvas{width:100%;display:block;margin-top:.4rem;}
+.sg-growth-legend{display:flex;gap:1rem;margin-top:.8rem;}
+.sg-growth-legend span{display:flex;align-items:center;gap:.4rem;font-size:.68rem;color:var(--muted);}
+.sg-growth-legend i{width:20px;height:2px;border-radius:2px;display:inline-block;}
+
+/* ── ABOUT ── */
+.about-section{padding:7rem 6% 5rem;}
+.about-orb{position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none;}
+.about-orb1{width:600px;height:500px;top:-80px;right:-100px;background:radial-gradient(ellipse,rgba(45,110,247,.09),transparent 70%);animation:orbPulse 22s ease-in-out infinite;}
+.about-orb2{width:450px;height:450px;bottom:-80px;left:-100px;background:radial-gradient(ellipse,rgba(0,200,150,.08),transparent 70%);animation:orbPulse 18s 6s ease-in-out infinite;}
+.about-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:420px 1fr;gap:2rem;position:relative;z-index:2;opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1);}
+.about-grid.about-visible{opacity:1;transform:translateY(0);}
+.about-card{background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:24px;padding:2.2rem;position:relative;overflow:hidden;backdrop-filter:blur(8px);text-align:center;}
+.about-card-glow{position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(0,200,150,.12),transparent 55%);pointer-events:none;}
+.about-avatar-wrap{display:flex;flex-direction:column;align-items:center;gap:.6rem;margin-bottom:1.2rem;}
+.about-avatar{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,var(--emerald),var(--sapphire));display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.6rem;color:#fff;position:relative;box-shadow:0 0 30px rgba(0,200,150,.4);}
+.about-avatar-ring{position:absolute;inset:-5px;border-radius:50%;border:1px solid rgba(0,200,150,.3);animation:geoRot 8s linear infinite;}
+.about-avatar-ring2{position:absolute;inset:-12px;border-radius:50%;border:1px dashed rgba(45,110,247,.2);animation:geoRot 14s linear infinite reverse;}
+.about-status{display:flex;align-items:center;gap:6px;font-size:.7rem;font-weight:600;color:var(--emerald2);background:rgba(0,200,150,.06);border:1px solid rgba(0,200,150,.2);padding:4px 12px;border-radius:100px;}
+.about-name{font-family:'DM Serif Display',serif;font-size:1.6rem;margin-bottom:.3rem;}
+.about-role-tag{display:inline-block;font-size:.72rem;font-weight:600;background:rgba(45,110,247,.1);border:1px solid rgba(45,110,247,.25);color:var(--sapphire2);padding:3px 14px;border-radius:6px;margin-bottom:1.2rem;}
+.about-bio{font-size:.88rem;color:var(--muted);line-height:1.8;text-align:left;}
+.about-bio strong{color:rgba(255,255,255,.8);}
+.about-contact-grid{display:flex;flex-direction:column;gap:.7rem;margin-top:1.4rem;}
+.about-contact-pill{display:flex;align-items:center;gap:.8rem;padding:.8rem 1rem;border-radius:12px;text-decoration:none;border:1px solid var(--border);transition:transform .25s,border-color .25s;}
+.about-contact-pill:hover{transform:translateY(-2px);}
+.about-cp-em{background:rgba(0,200,150,.04);border-color:rgba(0,200,150,.15);}
+.about-cp-sp{background:rgba(45,110,247,.04);border-color:rgba(45,110,247,.15);}
+.about-cp-tl{background:rgba(0,188,212,.04);border-color:rgba(0,188,212,.15);}
+.about-cp-ic{font-size:1.2rem;}
+.about-cp-label{font-size:.58rem;color:var(--muted);font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
+.about-cp-val{font-size:.8rem;color:#fff;font-weight:500;}
+.about-info-col{display:flex;flex-direction:column;gap:1.2rem;}
+.about-info-card{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:18px;padding:1.4rem;position:relative;overflow:hidden;backdrop-filter:blur(6px);}
+.about-ic-glow{position:absolute;inset:0;background:radial-gradient(circle at 0% 0%,rgba(0,200,150,.14),transparent 60%);pointer-events:none;}
+.about-ic-header{display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;}
+.about-ic-icon{font-size:1.1rem;}
+.about-ic-title{font-size:.85rem;font-weight:700;color:var(--emerald2);}
+.about-facts-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;}
+.about-fact{text-align:center;background:rgba(255,255,255,.025);border-radius:10px;padding:.6rem;}
+.about-fact-n{font-family:'DM Serif Display',serif;font-size:1.5rem;line-height:1;}
+.about-fact-l{font-size:.62rem;color:var(--muted);margin-top:2px;}
+.about-do-list{list-style:none;display:flex;flex-direction:column;gap:.55rem;}
+.about-do-list li{display:flex;align-items:center;gap:.65rem;font-size:.82rem;color:rgba(255,255,255,.65);}
+.about-do-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.about-edu-pills{display:flex;flex-direction:column;gap:.55rem;}
+.about-edu-pill{display:flex;justify-content:space-between;align-items:center;font-size:.78rem;color:rgba(255,255,255,.7);background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:8px;padding:.5rem .9rem;}
+.about-edu-school{font-size:.65rem;color:var(--muted);}
+
+/* ── QUOTE ── */
+.quote-section{position:relative;z-index:1;padding:8rem 6%;overflow:hidden;display:flex;justify-content:center;align-items:center;min-height:50vh;}
+.quote-orb1{position:absolute;width:700px;height:500px;top:50%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(0,200,150,.07),transparent 60%);border-radius:50%;filter:blur(80px);pointer-events:none;animation:orbPulse 16s ease-in-out infinite;}
+.quote-orb2{position:absolute;width:400px;height:400px;top:50%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(45,110,247,.05),transparent 60%);border-radius:50%;filter:blur(60px);pointer-events:none;animation:orbPulse 22s 4s ease-in-out infinite;}
+.quote-content{position:relative;z-index:2;max-width:800px;text-align:center;opacity:0;transform:translateY(40px);transition:opacity 1s cubic-bezier(.22,1,.36,1),transform 1s cubic-bezier(.22,1,.36,1);}
+.quote-content.q-visible{opacity:1;transform:translateY(0);}
+.quote-icon{font-size:2.5rem;color:var(--emerald);margin-bottom:1.5rem;animation:blink 3s ease-in-out infinite;}
+.quote-text{font-family:'DM Serif Display',serif;font-size:clamp(1.3rem,3vw,2.1rem);line-height:1.55;color:#fff;font-style:normal;margin-bottom:2rem;}
+.quote-text em{background:linear-gradient(135deg,var(--emerald2),var(--sapphire2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-style:italic;}
+.quote-author{display:flex;align-items:center;justify-content:center;gap:1.2rem;margin-bottom:1.2rem;font-size:.85rem;font-weight:600;color:rgba(255,255,255,.5);}
+.quote-author-line{height:1px;width:60px;background:linear-gradient(90deg,transparent,rgba(0,200,150,.4));}
+.quote-author-line:last-child{background:linear-gradient(90deg,rgba(45,110,247,.4),transparent);}
+.quote-footer-tags{display:flex;align-items:center;justify-content:center;gap:.7rem;margin-bottom:2.5rem;flex-wrap:wrap;}
+.quote-ftag{font-size:.72rem;font-weight:600;color:var(--muted);}
+.quote-fsep{color:rgba(255,255,255,.2);}
+.quote-cta-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  .edu-item,.edu-item-right{grid-template-columns:1fr 50px 1fr;}
+  .sg-grid{grid-template-columns:1fr 1fr;}
+  .sg-growth-card{grid-column:1/3;}
+  .about-grid{grid-template-columns:1fr;}
+}
+@media(max-width:768px){
+  .edu-item,.edu-item-right{grid-template-columns:36px 1fr!important;gap:0 .7rem;}
+  .edu-item .edu-card,.edu-item-right .edu-card{grid-column:2!important;padding:1.2rem!important;}
+  .edu-item .edu-dot-col,.edu-item-right .edu-dot-col{grid-column:1!important;padding-top:1rem;}
+  .edu-item .edu-spacer,.edu-item-right .edu-spacer{display:none;}
+  .edu-dot{width:32px;height:32px;font-size:.9rem;}
+  .sg-grid{grid-template-columns:1fr;}
+  .sg-growth-card{grid-column:1;}
+  .sg-circles-row{grid-template-columns:1fr 1fr;}
+  .about-grid{grid-template-columns:1fr;}
+}
+@media(max-width:480px){
+  .quote-text{font-size:1.15rem;}
+  .about-contact-grid{gap:.5rem;}
+}
+</style>
+
 <script>
 /* ═══ CURSOR ═══ */
 const cur=document.getElementById('cur'),curR=document.getElementById('curR');
@@ -1536,12 +2117,126 @@ document.querySelectorAll('.proj-tab').forEach(tab=>{
   });
 });
 
+/* ═══ EDUCATION REVEAL ═══ */
+let eduAnimated=false;
+new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting&&!eduAnimated){eduAnimated=true;runEduCinema();}
+},{threshold:.06}).observe(document.getElementById('education'));
+function runEduCinema(){
+  setTimeout(()=>document.getElementById('eduPill').classList.add('show'),80);
+  setTimeout(()=>document.getElementById('eduTitle').classList.add('show'),260);
+  setTimeout(()=>document.getElementById('eduSub').classList.add('show'),420);
+  [0,1,2].forEach(i=>{
+    const el=document.getElementById('eduItem'+i);
+    if(el) setTimeout(()=>{
+      el.classList.add('edu-visible');
+      const fill=document.getElementById('eduFill'+i);
+      if(fill) setTimeout(()=>fill.style.width=fill.dataset.w+'%',400);
+      // bar charts
+      if(i===2) setTimeout(()=>document.querySelectorAll('.edu-bar').forEach((b,bi)=>setTimeout(()=>b.classList.add('grow'),bi*150)),500);
+    },600+i*350);
+  });
+  // percent counters
+  const counters=[{id:'edu10pct',val:67},{id:'edu12pct',val:80},{id:'edubcapct',val:79}];
+  counters.forEach((c,ci)=>setTimeout(()=>glitchCount(document.getElementById(c.id),c.val,'%',1600),900+ci*350));
+}
+
+/* ═══ SKILLS GRAPH REVEAL ═══ */
+let sgAnimated=false;
+new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting&&!sgAnimated){sgAnimated=true;runSgCinema();}
+},{threshold:.06}).observe(document.getElementById('skillsgraph'));
+function runSgCinema(){
+  setTimeout(()=>document.getElementById('sgPill').classList.add('show'),80);
+  setTimeout(()=>document.getElementById('sgTitle').classList.add('show'),260);
+  setTimeout(()=>document.getElementById('sgSub').classList.add('show'),420);
+  const cards=document.querySelectorAll('.sg-circles-card,.sg-bars-card,.sg-growth-card');
+  cards.forEach((c,i)=>setTimeout(()=>c.classList.add('sg-visible'),500+i*200));
+  // Animate circular arcs
+  setTimeout(()=>{
+    document.querySelectorAll('.sg-arc').forEach(arc=>{
+      const val=parseInt(arc.dataset.val||0);
+      arc.style.strokeDashoffset=(226-val).toString();
+    });
+    document.querySelectorAll('.sg-circ-pct').forEach(el=>glitchCount(el,parseInt(el.dataset.val),'',1800));
+  },700);
+  // Animate horizontal bars
+  setTimeout(()=>document.querySelectorAll('.sg-hbar-fill').forEach((el,i)=>setTimeout(()=>el.style.width=el.dataset.w+'%',i*100)),800);
+  // Draw growth chart
+  setTimeout(drawSgGrowthChart,600);
+}
+function drawSgGrowthChart(){
+  const canvas=document.getElementById('sgGrowthCanvas');if(!canvas)return;
+  canvas.width=canvas.parentElement.offsetWidth;canvas.height=140;
+  const ctx=canvas.getContext('2d'),W=canvas.width,H=canvas.height-20;
+  const months=['Jan','Mar','May','Jul','Sep','Nov'];
+  const projects=[2,4,7,11,16,20];
+  const clients=[1,3,5,8,12,15];
+  const maxV=22;
+  ctx.strokeStyle='rgba(255,255,255,.06)';ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){const y=H-(H/4)*i+10;ctx.beginPath();ctx.moveTo(40,y);ctx.lineTo(W,y);ctx.stroke();}
+  months.forEach((m,i)=>{const x=40+i*(W-50)/5;ctx.fillStyle='rgba(255,255,255,.2)';ctx.font='9px DM Sans';ctx.textAlign='center';ctx.fillText(m,x,H+18);});
+  // Projects line
+  const drawLine=(data,color1,color2,fillColor)=>{
+    const pts=data.map((v,i)=>[40+i*(W-50)/5,H-(v/maxV)*H+10]);
+    const g=ctx.createLinearGradient(0,0,W,0);g.addColorStop(0,color1);g.addColorStop(1,color2);
+    const aG=ctx.createLinearGradient(0,0,0,H);aG.addColorStop(0,fillColor);aG.addColorStop(1,'transparent');
+    ctx.fillStyle=aG;ctx.beginPath();ctx.moveTo(pts[0][0],H+10);pts.forEach(p=>ctx.lineTo(p[0],p[1]));ctx.lineTo(pts[pts.length-1][0],H+10);ctx.closePath();ctx.fill();
+    ctx.strokeStyle=g;ctx.lineWidth=2;ctx.lineJoin='round';ctx.lineCap='round';
+    ctx.shadowColor=color2;ctx.shadowBlur=5;
+    ctx.beginPath();pts.forEach((p,i)=>i===0?ctx.moveTo(p[0],p[1]):ctx.lineTo(p[0],p[1]));ctx.stroke();ctx.shadowBlur=0;
+    pts.forEach(p=>{ctx.beginPath();ctx.arc(p[0],p[1],3,0,Math.PI*2);ctx.fillStyle=color2;ctx.fill();});
+  };
+  drawLine(projects,'#00c896','#00e8ad','rgba(0,200,150,.15)');
+  drawLine(clients,'#2d6ef7','#5e91ff','rgba(45,110,247,.12)');
+}
+
+/* ═══ ABOUT REVEAL ═══ */
+let aboutAnimated=false;
+new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting&&!aboutAnimated){aboutAnimated=true;runAboutCinema();}
+},{threshold:.06}).observe(document.getElementById('about'));
+function runAboutCinema(){
+  setTimeout(()=>document.getElementById('aboutPill').classList.add('show'),80);
+  setTimeout(()=>document.getElementById('aboutTitle').classList.add('show'),260);
+  setTimeout(()=>document.getElementById('aboutSub').classList.add('show'),420);
+  setTimeout(()=>document.getElementById('aboutGrid').classList.add('about-visible'),600);
+}
+
+/* ═══ QUOTE REVEAL ═══ */
+let quoteAnimated=false;
+new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting&&!quoteAnimated){quoteAnimated=true;document.getElementById('quoteContent').classList.add('q-visible');}
+},{threshold:.1}).observe(document.getElementById('quote'));
+
 /* ═══ MOBILE ═══ */
-function toggleMob(){document.getElementById('mobMenu').classList.toggle('open');}
+function toggleMob(){
+  const m=document.getElementById('mobMenu');
+  m.classList.toggle('open');
+}
 document.addEventListener('click',e=>{
   const m=document.getElementById('mobMenu');
   if(!m.contains(e.target)&&!document.querySelector('.hamburger').contains(e.target))m.classList.remove('open');
 });
+
+/* ═══ ACTIVE NAV HIGHLIGHT ═══ */
+const navSections=['home','skills','experience','portfolio','education','about','quote'];
+const navLinks=document.querySelectorAll('.nav-links a');
+function updateActiveNav(){
+  let current='home';
+  navSections.forEach(id=>{
+    const sec=document.getElementById(id);
+    if(sec&&window.scrollY>=sec.offsetTop-120) current=id;
+  });
+  navLinks.forEach(a=>{
+    a.style.color='';
+    if(a.getAttribute('href')==='#'+current&&!a.classList.contains('nav-cta')){
+      a.style.color='var(--emerald2)';
+    }
+  });
+}
+window.addEventListener('scroll',updateActiveNav,{passive:true});
+updateActiveNav();
 </script>
 </body>
 </html>
